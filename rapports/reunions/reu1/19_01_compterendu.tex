@@ -1,0 +1,81 @@
+\documentclass[a4paper, 11pt]{article}
+
+\usepackage[french]{babel}
+\usepackage[utf8]{inputenc}  
+\usepackage[T1]{fontenc}
+\usepackage[left=3cm,right=3cm,top=3cm,bottom=3cm]{geometry}
+\usepackage{graphicx}
+\usepackage{parskip}
+\usepackage{titling}
+
+\setlength{\droptitle}{-6em}   % This is your set screw
+
+\title{
+	\noindent\rule{\linewidth}{0.4pt}
+	\huge{Compte-Rendu Réunion 1\\}
+	\medskip
+	\Large{PAM --- Auto-Oscillations des Instruments de Musique}
+	\noindent\rule{\linewidth}{1pt}
+}
+\author{Durand, Le, Salvador, Verrier}
+\date{19 Janvier 2021}
+
+\begin{document}
+
+\maketitle
+
+Langages à utiliser:
+\begin{itemize}
+\item Python (général)
+\item MaxMsp (temps réel musical)
+\end{itemize}
+
+\bigskip
+
+Choix de l'instrument auto-oscillant, sachant que l'on pourra en faire plus (Saxophone, Violon...) mais qu'il vaut mieux bien faire 1 instument plutôt que de s'étaler:
+\begin{itemize}
+\item Clarinette
+\end{itemize}
+
+\bigskip
+
+Étant donné l'instrument, les modèles physiques 'excitateur <=> résonateur' à creuser:
+\begin{itemize}
+\item modèle avec les décompositions modales (vu en TP)
+\item modèle 'ligne à retard' du paper McIntyre
+\end{itemize}
+
+\bigskip
+
+Cheminement du projet, pour aller de modèle physique à outil prévisible pour un musicien.
+\begin{enumerate}
+\item Créer une simulation de l'instrument
+	\begin{itemize}
+	\item Développer un modèle physique (caricatural en premier lieu)
+	\item Programmer une simulation en temps continu / différé sur Python
+	\end{itemize}
+\item Cartographie des régimes
+	\begin{itemize}
+	\item Choisir l'espace à cartographier (les paramètres du modèle modifiables)
+	\item Choisir les descripteurs à utiliser (spectre, loudness...) + caractériser les différents régimes (canard, chaud, brillant...)
+	\item Cartographier l'espace des paramètres avec la méthode de mapping choisie (SVM ou autre). On suppose que les paramètres restent stables
+	\item (si le temps permets, on pourra essayer d'explorer le cas beaucoup plus difficile où les paramètres changent suivant une trajectoire).
+	\end{itemize}
+\item Temps réel et contrôleurs
+	\begin{itemize}
+	\item Traduire le simulateur en temps discret / réel sur Python
+	\item Traduire le programme à MaxMsp
+	\item Faire une interface tablette / clavier (ex cartographie sur tablette où on peut choisir le régime + clavier donne input midi pour joueur l'instrument simulé)
+	\end{itemize}
+\end{enumerate}
+
+\bigskip
+
+Objectifs pour la prochaine réunion:
+\begin{itemize}
+\item approfondir la biblio, lire des segments pertinents du livre de Chaigne et Kergomard
+\item bien comprendre les 2 modèles suggérés (décomposition modale + ligne à retard) pour la clarinette
+\item première ébauches de simulation sur Python.
+\end{itemize}
+
+\end{document}
