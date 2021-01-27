@@ -25,7 +25,44 @@
 \maketitle
 
 
-Lorem Ispum.
+\section{Récapitulatif de la réunion}
+	\subsection{Approche modale}
+	\begin{itemize}
+		\item Présentation des résultats de simulation
+		\begin{itemize}
+			\item Implémentation du système avec 5 modes, basé sur le TP Vents 
+			\item Le code doit être parfois mieux écrit pour être compréhensible
+		\end{itemize}
+		\item Temps réel sous Simulink
+		\begin{itemize}
+			\item Implémentation du système avec 1 mode
+			\item Il reste encore beaucoup de problèmes, en particulier dans la sortie sonore
+		\end{itemize}
+	\end{itemize}
+		
+	\subsection{Approche ligne à retard}
+	\begin{itemize}
+		\item Discussion sur la forme de la fonction de réflexion 
+		\begin{itemize}
+			\item Rôle du signe "-"
+			\item Maximum de la fonction de réflexion et pertes (rayonnement, ...)
+		\end{itemize}
+		\item Discussion sur le modèle de lignes à retard 
+		\begin{itemize}
+			\item Rôle des différents éléments (carte itérée, retard, convolution par $r(t)$, ...)
+			\item Implémentation informatique en pratique (utilisation d'un buffer, ...)
+		\end{itemize}
+	\end{itemize}
 
+\section{Objectifs pour la prochaine réunion}
+\begin{itemize}
+	\item Exprimer la fonction de réflexion en connaissant l'impédance du tube et l'impédance de rayonnement, puis analyse de la fonction (Diagramme de Bode..)
+	\item Prouver que le lien entre $(p^{+}, p^{-})$ et $(p,u)$ est une rotation de 45°
+	\item Comprendre, formaliser et implémenter l'approche ligne à retard
+	\item Comprendre quel solveur on utilise (\texttt{dopri45} ou autres) dans l'approche modale
+	\item Avoir une meilleure ébauche de transposition vers le temps réel pour l'approche modale		
+	\item (Après le cours de vendredi) Explorer les notions de cartographie des régimes d'oscillations 
+	\item (Lors de la prochaine réunion) De nouveau parler de la paramétrisation de la fonction de réflexion
+\end{itemize}
 
 \end{document}
