@@ -3,6 +3,7 @@
 **/.DS_Store
 **/*.aux
 **/*.log
+**/*.out
 **/*.synctex.gz
 
 # Saved figures
