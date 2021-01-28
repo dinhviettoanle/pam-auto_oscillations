@@ -1,0 +1,186 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[sc]{mathpazo}
+
+\usepackage[T1]{fontenc}
+% \renewcommand{\familydefault}{\sfdefault}
+
+\usepackage[pdftex,
+            pdfauthor={LE Dinh-Viet-Toan},
+            pdftitle={Title},
+            pdfcreator={pdflatex},
+            hidelinks]{hyperref}
+
+\usepackage{ragged2e}
+\usepackage[a4paper, right=2.5cm,left=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+
+\usepackage{mathtools} % Basic maths
+\usepackage{mathabx}
+\usepackage{indentfirst} % Indentation at the beginning of a section
+\usepackage{textcomp} % Extra characters
+\usepackage{todonotes} 
+\usepackage{multicol} % Multi columns
+\usepackage{cancel} % Draw line to cancel a term
+
+\usepackage[export]{adjustbox}
+\usepackage{subcaption}
+
+% Graphics
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,shadings,patterns}
+\usepackage{natbib}
+\usepackage{graphicx,wrapfig,lipsum}
+
+% Disable number in section
+\let\oldsection\section
+\renewcommand{\section}[1]{\oldsection*{#1}}
+\let\oldsubsection\subsection
+\renewcommand{\subsection}[1]{\oldsubsection*{\hspace{1em}#1}}
+
+% Extra commands
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+\newcommand{\pplus}{p^{+}}
+\newcommand{\pmoins}{p^{-}}
+\newcommand{\sqrttwoovtwo}{\frac{\sqrt{2}}{2}}
+
+% Math operators
+\DeclareMathOperator\Imspace{Im}
+
+\providecommand{\dividespace}{\vspace{1.6em}}
+
+\title{Démonstration rotation de 45° entre $(\pplus,\pmoins)$ et $(p,u)$ }
+\author{}
+\date{}
+
+
+
+\begin{document}
+
+\maketitle
+
+\section{Équation des ondes 1D}
+
+Soit l'équation des ondes 1D : 
+\begin{equation*}
+	\frac{\partial^2 P}{\partial t^2} - c^2 \frac{\partial^2 P}{\partial x^2} = 0
+\end{equation*}
+
+\subsection{Solution en pression}
+Soit $P(x,t) = f(x-ct) + g(x+ct)$ où $f$ et $g$ fonctions quelconques.
+
+On a que 
+\begin{align*}
+	\frac{\partial^2 f(x-ct)}{\partial t^2} - c^2 \frac{\partial^2 f(x-ct)}{\partial x^2} = c^2 f''(x-ct) - c^2 f''(x-ct) = 0
+\end{align*}
+
+Et
+
+\begin{align*}
+	\frac{\partial^2 g(x+ct)}{\partial t^2} - c^2 \frac{\partial^2 g(x+ct)}{\partial x^2} = c^2 g''(x+ct) - c^2 g''(x+ct) = 0
+\end{align*}
+
+On a bien, par somme que $P(x,t) = f(x-ct) + g(x+ct)$ est solution de l'équation des ondes 1D.
+
+On posera $\pplus = f(x-ct)$ et $\pmoins = g(x+ct)$.
+
+\subsection{Solution en débit}
+Par Euler linéarisé :
+
+\begin{align*}
+	\rho_0 \frac{\partial \vec{v}}{\partial t} 
+	& = -\vec{\nabla}{P} \\
+	& = - \left[\frac{\partial \pplus}{\partial x} + \frac{\partial \pmoins}{\partial x}\right].\vec{u_x} \\
+	& = - \left[\frac{\partial f(x-ct)}{\partial (x-ct)} \frac{\partial (x-ct)}{\partial x} + 
+				\frac{\partial g(x+ct)}{\partial (x+ct)} \frac{\partial (x+ct)}{\partial x} \right].\vec{u_x} \\
+	& = - \left[\frac{\partial f(x-ct)}{\partial (x-ct)} + \frac{\partial g(x+ct)}{\partial (x+ct)} \right].\vec{u_x}
+\end{align*}
+
+Puis en intégrant et en projetant sur $\vec{u_x}$ :
+
+\begin{align*}
+	\rho_0 v 
+	& = - \int \frac{\partial f(x-ct)}{\partial (x-ct)} + \frac{\partial g(x+ct)}{\partial (x+ct)} dt \\
+	& = -\left[-\frac{1}{c} f(x-ct) + \frac{1}{c} g(x+ct)\right] \\
+	& = \frac{1}{c} f(x-ct) - \frac{1}{c} g(x+ct) 
+\end{align*}
+
+D'où :
+\begin{equation*}
+	v = \frac{1}{\rho_0 c} (\pplus - \pmoins)
+\end{equation*}
+
+Et en utilisant le débit $u=v.S$ et l'impédance acoustique caractéristique $Z_c = \frac{\rho_0 c}{S}$ :
+\begin{equation*}
+	u = Z_c^{-1} (\pplus - \pmoins)
+\end{equation*}
+
+\section{Lien $(\pplus,\pmoins)$ et $(p,u)$}
+
+On a donc que :
+
+\begin{equation*}
+	\begin{cases}
+		P & = \pplus + \pmoins \\
+		Z_c.u & = \pplus - \pmoins
+	\end{cases}
+\end{equation*}
+
+D'où : 
+
+\begin{align*}
+	\begin{pmatrix}
+		P\\
+		Z_{c} .u
+	\end{pmatrix} \ 
+	& =\ 
+	\begin{pmatrix}
+		1 & -1\\
+		1 & 1
+	\end{pmatrix}
+	\begin{pmatrix}
+		\pplus\\
+		-\pmoins
+	\end{pmatrix} \\
+	& =\
+	\frac{2}{\sqrt{2}}
+	\begin{pmatrix}
+		\sqrttwoovtwo & -\sqrttwoovtwo\\
+		\sqrttwoovtwo & \sqrttwoovtwo
+	\end{pmatrix}
+	\begin{pmatrix}
+		\pplus\\
+		-\pmoins
+	\end{pmatrix} \\
+	\begin{pmatrix}
+		P\\
+		Z_{c} .u
+	\end{pmatrix}
+	& =\
+	\frac{2}{\sqrt{2}} R_{\frac{\pi}{4}}
+	\begin{pmatrix}
+		\pplus\\
+		-\pmoins
+	\end{pmatrix}
+\end{align*}
+
+où on a $R_\theta$ la matrice de rotation d'angle $\theta$ : 
+
+\begin{equation*}
+	R_\theta = \begin{pmatrix}
+		\cos \theta & -\sin \theta\\
+		\sin \theta & \cos \theta
+	\end{pmatrix}
+\end{equation*}
+
+Donc finalement, 
+$\begin{pmatrix}
+	P\\
+	Z_{c} .u
+\end{pmatrix}$ est la rotation d'angle 45° de $\begin{pmatrix}
+\pplus\\
+-\pmoins
+\end{pmatrix}$ dans le sens $\curvearrowleft$, à un facteur près.
+
+D'où, on trouve la courbe $\pplus = G[-\pmoins]$ en faisant tourner la courbe $u=F[P]$ (adimensionnée par l'impédance caractéristique) de 45° dans dans le sens $\curvearrowright$.
+
+\end{document}
