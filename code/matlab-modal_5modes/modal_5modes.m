@@ -1,7 +1,7 @@
 %% Approche Modale - Système à 5 modes
 
 close all;
-clear all;
+clear;
 
 %% Constants
 R = 0.014;
@@ -95,7 +95,7 @@ zeta = 0.15;
 t_end = 2;
 Fs = 44100;
 
-[t, X] = get_signal_5_modes(gamma, zeta, res, t_end, Fs);
+[t, X] = simulate_5modes(gamma, zeta, res, t_end, Fs);
 final_pressure = X(:,1) + X(:,3) + X(:,5) + X(:,7) + X(:,9);
 
 
@@ -108,13 +108,13 @@ title('Simulation 5 modes');
 figure;
 specgram(final_pressure, 2048, Fs);
 
+plot_spectrum(final_pressure, Fs);
 %% Audio Output
 filename = "sys5_modes.wav";
 audiowrite(filename, final_pressure, Fs);
 
 %% Audio Play
 soundsc(final_pressure, Fs);
-
 
 
 

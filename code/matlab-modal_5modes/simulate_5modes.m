@@ -1,4 +1,4 @@
-function [t, X] = get_signal_5_modes(gamma, zeta, res, t_end, Fs)
+function [t, X] = simulate_5modes(gamma, zeta, res, t_end, Fs)
 
 %GET_SIGNAL_5_MODES Summary of this function goes here
 %   Detailed explanation goes here
