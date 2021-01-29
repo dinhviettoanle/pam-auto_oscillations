@@ -8,3 +8,6 @@
 
 # Saved figures
 *.png
+
+# Output audio
+*.wav
