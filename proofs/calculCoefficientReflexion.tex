@@ -1,0 +1,100 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[sc]{mathpazo}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+% \renewcommand{\familydefault}{\sfdefault}
+
+%\usepackage[pdftex,
+%            pdfauthor={LE Dinh-Viet-Toan},
+%           pdftitle={Title},
+%            pdfcreator={pdflatex},
+%            hidelinks]{hyperref}
+
+\usepackage{ragged2e}
+\usepackage[a4paper, right=2.5cm,left=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+
+\usepackage{mathtools} % Basic maths
+\usepackage{mathabx}
+\usepackage{indentfirst} % Indentation at the beginning of a section
+\usepackage{textcomp} % Extra characters
+\usepackage{todonotes} 
+\usepackage{multicol} % Multi columns
+\usepackage{cancel} % Draw line to cancel a term
+
+\usepackage[export]{adjustbox}
+\usepackage{subcaption}
+
+% Graphics
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,shadings,patterns}
+\usepackage{natbib}
+\usepackage{graphicx,wrapfig,lipsum}
+
+% Disable number in section
+\let\oldsection\section
+\renewcommand{\section}[1]{\oldsection*{#1}}
+\let\oldsubsection\subsection
+\renewcommand{\subsection}[1]{\oldsubsection*{\hspace{1em}#1}}
+
+% Extra commands
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+\newcommand{\pplus}{p^{+}}
+\newcommand{\pmoins}{p^{-}}
+\newcommand{\sqrttwoovtwo}{\frac{\sqrt{2}}{2}}
+\newcommand{\powinv}{^{-1}}
+
+
+% Math operators
+\DeclareMathOperator\Imspace{Im}
+
+\providecommand{\dividespace}{\vspace{1.6em}}
+
+\title{Expression de la fonction de réflexion }
+\author{}
+\date{}
+
+
+
+\begin{document}
+
+\maketitle
+
+En reprenant les expressions du champs de pression $p(x, t)$ et du champs de débit $u(x, t)$ en décomposition d'ondes aller et retour \footnote{cf preuve de Viet-Toan}, on a :
+\begin{align}
+p(x, t) & = p^+(t-x/c)+p^-(t+x/c)\\
+u(x,t) & = Z_c^{-1}[p^+(t-x/c)-p^-(t+x/c)].
+\end{align}
+Où $Z_c=\rho_0c/S$ désigne l'impédance caractéristique d'un tuyau, et $P^{\pm}(\omega, x)=TF[p^{\pm}(t, x)]$. En remarquant que $p^{\pm}(t\pm x/c)=p^{\pm}(t)\ast\delta(t\pm x/c)$, on obtient les expressions de $p$ et $u$ dans le domaine fréquentiel :
+\begin{align}
+P(\omega, x) & =P^+(\omega)\rm{e}^{-jkx}+P^-(\omega)\rm{e}^{jkx} \label{eq:pfreq}\\ 
+U(\omega, x) & = Z_c^{-1}\left[P^+(\omega)^{-jkx}-P^-(\omega)^{jkx}\right]\label{eq:ufreq}.
+\end{align}
+Avec $k=2\pi fc$ le nombre d'ondes.\par
+
+En évaluant \ref{eq:pfreq} et \ref{eq:ufreq} en $x=l$, et en utilisant la relation $U(\omega, l)=SV(\omega, l)=SZ_r\powinv(\omega)P(\omega, l)$\footnote{J'ai un doute sur cette partie, je ne suis pas sûr que ce soit valable dans le tuyau.} où $Z_r(\omega)$ désigne l'impédance de rayonnement, on obtient
+
+\begin{align}
+P(\omega, l) & =P^+(\omega)\rm{e}^{-jkl}+P^-(\omega)\rm{e}^{jkl}\label{pl}\\ 
+SZ_r\powinv(\omega)P(\omega, l) & = Z_c^{-1}\left[P^+(\omega)^{-jkl}-P^-(\omega)^{jkl}\right]\label{ul}
+\end{align}
+
+En injectant \ref{pl} dans \ref{ul}, on obtient une relation entre $P^+$ et $P^-$ :
+\begin{align}
+P^+(\omega)\rm{e}^{-jkl}\left[Z_c\powinv-SZ_r\powinv\right]=P^-(\omega)\rm{e}^{jkl}\left[SZ_r\powinv+Z_c\powinv\right]
+\end{align}
+On en tire une expression de la fonction de réflexion $R(\omega)=TF[r(t)]$:
+\begin{align}
+R(\omega)=\rm{e}^{2jkl}\frac{P^-(\omega)}{P^+(\omega)}=\frac{Z_c\powinv-SZ_r\powinv}{Z_c\powinv+SZ_r\powinv}
+\end{align}\footnote{cf Chaigne\& Kergomard, chap 4 sec 5, eq 4.25}
+
+Le notebook CalcFonctionReflexion illustre la fonction de réflexion dans les domaines temporel et fréquentiel. Il doit y avoir un problème dans le calcul : 
+\begin{itemize}
+\item $r(t)>0$
+\item $R(f)$ est plus passe haut que passe bas
+\end{itemize}
+
+\end{document}
+
+
