@@ -11,3 +11,6 @@
 
 # Output audio
 *.wav
+
+# Matlab autosave
+*.asv
