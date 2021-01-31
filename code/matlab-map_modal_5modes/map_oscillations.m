@@ -33,8 +33,12 @@ axis equal;
 %% Adaptive samples
 
 svm_col = CODES.sampling.edsd(descriptor, svm, [0 0], [1 1], 'iter_max', 50, 'conv', false);
+
+%%
 figure;
-svm_col{end}.isoplot
+svm_col{end}.isoplot;
+xlabel("$\gamma$", "Interpreter", "latex");
+ylabel("$\zeta$", "Interpreter", "latex");
 axis equal;
 
 
