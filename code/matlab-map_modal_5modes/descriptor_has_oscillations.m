@@ -12,5 +12,6 @@ if oscillates
 else
     has_oscillations = -1;
 end
+
 end
 
