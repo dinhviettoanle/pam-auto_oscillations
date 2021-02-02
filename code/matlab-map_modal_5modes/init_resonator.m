@@ -2,7 +2,7 @@
 
 %% Constants
 R = 0.014;
-Pabsc = linspace(0, 0.5, 2);
+Pabsc = linspace(0, l, 2);
 Prayon = ones(1, 2) * R; 
 
 rho0 = 1.225;

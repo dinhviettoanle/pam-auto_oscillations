@@ -8,7 +8,9 @@ relevant_p = p(0.75*end:end);
 power_p = relevant_p.^2;
 var_power_enveloppe = var(power_p)/mean(power_p);
 
-if (var_power_enveloppe > 1)
+fprintf("epsilon : %f \n", var_power_enveloppe);
+
+if (var_power_enveloppe > 1e-2) && (var_power_enveloppe < 1e2)
     is_periodic = -1;
 else
     is_periodic = 1;

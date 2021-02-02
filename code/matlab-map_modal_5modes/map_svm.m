@@ -2,14 +2,26 @@
 close all;
 clear;
 
+l = 0.5042;
+
 run("init_resonator");
 
+% res(2,1) = 1.5*res(2,1); % !!!!!! Remove this if it is a normal simulation
 %% Initial samples
+
+min_gamma = 0.35;
+max_gamma = 1;
+min_zeta = 0;
+max_zeta = 1;
+
 N_init_samples = 20;
 t_end = 2;
 Fs = 44100;
 
 init_samples = lhsdesign(N_init_samples,2); % [(gamma, zeta)]
+init_samples(:,1) = init_samples(:,1) * (max_gamma - min_gamma) + min_gamma;
+init_samples(:,2) = init_samples(:,2) * (max_zeta - min_zeta) + min_zeta;
+
 classes = zeros(N_init_samples, 1);
 
 % warning('off', 'MATLAB:ode15s:IntegrationTolNotMet');
@@ -17,6 +29,7 @@ classes = zeros(N_init_samples, 1);
 % descriptor = @(x) descriptor_has_oscillations(x(:,1), x(:,2), res, t_end, Fs);
 % descriptor = @(x) descriptor_itg_instable(x(:,1), x(:,2), res, t_end, Fs);
 % descriptor = @(x) descriptor_periodic(x(:,1), x(:,2), res, t_end, Fs);
+descriptor = @(x) descriptor_in_tune(x(:,1), x(:,2), res, t_end, Fs);
 
 
 for i=1:N_init_samples
@@ -35,7 +48,7 @@ axis equal;
 
 %% Adaptive samples
 
-svm_col = CODES.sampling.edsd(descriptor, svm, [0 0], [1 1], 'iter_max', 50, 'conv', false);
+svm_col = CODES.sampling.edsd(descriptor, svm, [min_gamma min_zeta], [max_gamma max_zeta], 'iter_max', 50, 'conv', false);
 
 %%
 figure;
