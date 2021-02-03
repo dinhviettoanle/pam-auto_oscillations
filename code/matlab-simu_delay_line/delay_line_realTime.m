@@ -17,8 +17,10 @@ c=340;
 u_A = 200;
 p_M = 75e3;
 
-gamma = 0.62;
-zeta = 0.6;
+gamma = ones(1, N)*0.01;
+gamma(N/2:N)=0; 
+zeta = ones(1, N)*0.6;
+zeta(N/2:N)=0;
 
 %instrument
 a=2e-2;
@@ -40,8 +42,8 @@ q=0;%initial total pressure
 f=0;
 for ind = 1:N-1
     %q=q_o(ind)+reflectionFunction(a, b, dt, te, ind)*delay(q_o, n, ind);
-    q=q_o(ind)+0.8*delay(q_o, n, ind);
-    f=F(q, gamma, zeta);
+    q=q_o(ind)+1*delay(q_o, n, ind);
+    f=F(q, gamma(ind), zeta(ind));
     q_o(ind+1)=Zc*f;
     
 end
