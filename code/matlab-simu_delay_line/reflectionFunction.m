@@ -5,6 +5,6 @@ function r = reflectionFunction(a,b, dt, te, ind)
 %dt:pas de temps (=2*L/c)
 %te=péfiode d'échantillonnage
 %ind:indice courant
-r=a*exp((-b*(te*ind-dt))^2);
+r=a*exp(-b*(te*ind-dt)^2);
 end
 
