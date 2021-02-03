@@ -12,6 +12,8 @@ function zeta = zeta_evol(t)
 % zeta = 0.7 - 0.6/6*t;
 
 % Linear up from 0.1 to 0.7
-zeta = 0.1 + 0.6/6*t;
+% zeta = 0.1 + 0.8/6*t;
+
+zeta = 0.15;
 end
 
