@@ -1,5 +1,5 @@
 function [is_instable] = descriptor_itg_instable(gamma, zeta, res, t_end, Fs)
-
+% !!! USELESS !!!  
 warning('error', 'MATLAB:ode15s:IntegrationTolNotMet');
  
 try

@@ -1,7 +1,6 @@
 %% Approche Modale - Initialisation du résonnateur
 
 %% Constants
-R = 0.014;
 Pabsc = linspace(0, l, 2);
 Prayon = ones(1, 2) * R; 
 
