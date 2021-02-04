@@ -7,7 +7,7 @@ N_BUFFER=100;
 N_samples=N_BUFFER*BUFFER_SIZE;
 %% Delay line, real time
 %pour l'instant sans buffer
-fe=44000;
+fe=10000;
 te=1/fe;
 %N=3*fe;
 %% paramêtres
