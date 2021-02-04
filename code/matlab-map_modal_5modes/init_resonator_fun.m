@@ -1,5 +1,4 @@
-%% Approche Modale - Initialisation du résonnateur
-% A priori inutile pour generer les maps (tout est dans init_resonator_fun.m)
+function [res] = init_resonator_fun(l, R)
 
 %% Constants
 Pabsc = linspace(0, l, 2);
@@ -24,7 +23,7 @@ Z_th = Z_th * S_out/(rho0*c);
 Fs = 8000;
 
 [height_peaks_th, index_peaks_th] = findpeaks(abs(Z_th));
-frq_peaks_th = index_peaks_th * (Fs/2)/length(Z_th);
+% frq_peaks_th = index_peaks_th * (Fs/2)/length(Z_th);
 
 %% Calcul des fréquences et facteurs de qualite
 
@@ -48,10 +47,5 @@ for j = 1:5
 end
 
 
-
-
-
-
-
-
+end
 

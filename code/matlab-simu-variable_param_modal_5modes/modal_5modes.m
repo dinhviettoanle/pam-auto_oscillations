@@ -4,8 +4,9 @@ close all;
 clear;
 
 %% Constants
-R = 0.014;
-Pabsc = linspace(0, 0.5, 2);
+R = 3e-2;
+l = 0.5042; % E : 0.5042
+Pabsc = linspace(0, l, 2);
 Prayon = ones(1, 2) * R; 
 
 rho0 = 1.225;
@@ -31,12 +32,14 @@ xlabel('Fréquence (Hz)');
 ylabel('Impédance adimensionnée');
 title("Impédance d'entrée");
 grid on;
+drawnow();
 
 subplot(2,1,2); 
 plot(freq_th, angle(Z_th));
 xlabel('Fréquence (Hz)');
 ylabel('Phase');
 grid on;
+drawnow();
 
 %% Recherche frequences de resonnance
 Fs = 8000;
@@ -52,6 +55,7 @@ xlabel('Fréquence (Hz)');
 ylabel('Impédance adimensionnée');
 title("Fréquences de résonnance");
 grid on;
+drawnow();
 
 
 %% Calcul des fréquences et facteurs de qualite
@@ -72,6 +76,7 @@ for i = 1:length(frq_res_esprit)
     end
 end
 title("Fréquences trouvées par ESPRIT");
+drawnow();
 
 
 %% Attribution frq / Q
@@ -90,8 +95,6 @@ end
 
 %% Modélisation excitateur
 
-close all;
-
 t_end = 6;
 Fs = 44100;
 
@@ -100,7 +103,9 @@ zeta = 0.15;
 
 [t, X] = simulate_5modes(gamma, zeta, res, t_end, Fs);
 final_pressure = X(:,1) + X(:,3) + X(:,5) + X(:,7) + X(:,9);
+% final_pressure = X(:,1) + X(:,3);
 
+%% Plots
 
 % figure;
 % plot(t, final_pressure);
@@ -113,13 +118,14 @@ final_pressure = X(:,1) + X(:,3) + X(:,5) + X(:,7) + X(:,9);
 % xlabel('t');
 % ylabel('$\gamma$', 'Interpreter', 'latex');
 
-load("descriptor_has_oscillations");
+
+load("descriptor_has_oscillations-svm");
 t_dlist = (t(2:end)+t(1:(end-1)))/2;
 gamma_list = diff(X(:,end-1))./diff(t);
 zeta_list = diff(X(:,end))./diff(t);
 N_sub = 50;
  % Couleur en fonction du temps
-colors = linspace(1,10,length(gamma_list(1:Fs/N_sub:end)));
+colors = linspace(0, t_dlist(end), length(gamma_list(1:Fs/N_sub:end)));
 % Couleur en fonction de l'amplitude de la pression
 % colors = final_pressure(1:Fs/N_sub:end-1); 
 
@@ -144,7 +150,7 @@ ylim([0 1])
 
 
 figure;
-svm_col{end}.isoplot('samples', false, 'legend', false, 'msvsty', 'r.', 'psvsty', 'b.');
+svm_final.isoplot('samples', false, 'legend', false, 'msvsty', 'r.', 'psvsty', 'b.');
 plot(gamma_list(1:Fs/N_sub:end), zeta_list(1:Fs/N_sub:end),'k');
 hold on;
 scatter(gamma_list(1:Fs/N_sub:end), zeta_list(1:Fs/N_sub:end), 10, colors, 'filled');
@@ -152,6 +158,8 @@ xlabel('$\gamma$', 'Interpreter', 'latex');
 ylabel('$\zeta$', 'Interpreter', 'latex');
 xlim([0 1]);
 ylim([0 1]);
+cbar = colorbar;
+ylabel(cbar, 'Time (s)');
 % axis equal;
 
 % 
@@ -160,11 +168,11 @@ ylim([0 1]);
 % 
 % plot_spectrum(final_pressure, Fs);
 %% Audio Output
-filename = "sys5_modes_var.wav";
-audiowrite(filename, final_pressure, Fs);
-
-%% Audio Play
-soundsc(final_pressure, Fs);
+% filename = "sys5_modes_var.wav";
+% audiowrite(filename, final_pressure, Fs);
+% 
+% %% Audio Play
+% soundsc(final_pressure, Fs);
 
 
 
