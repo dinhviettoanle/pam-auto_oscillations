@@ -119,7 +119,7 @@ final_pressure = X(:,1) + X(:,3) + X(:,5) + X(:,7) + X(:,9);
 % ylabel('$\gamma$', 'Interpreter', 'latex');
 
 
-load("descriptor_has_oscillations");
+load("descriptor_has_oscillations-svm");
 t_dlist = (t(2:end)+t(1:(end-1)))/2;
 gamma_list = diff(X(:,end-1))./diff(t);
 zeta_list = diff(X(:,end))./diff(t);
@@ -150,7 +150,7 @@ ylim([0 1])
 
 
 figure;
-svm_col{end}.isoplot('samples', false, 'legend', false, 'msvsty', 'r.', 'psvsty', 'b.');
+svm_final.isoplot('samples', false, 'legend', false, 'msvsty', 'r.', 'psvsty', 'b.');
 plot(gamma_list(1:Fs/N_sub:end), zeta_list(1:Fs/N_sub:end),'k');
 hold on;
 scatter(gamma_list(1:Fs/N_sub:end), zeta_list(1:Fs/N_sub:end), 10, colors, 'filled');
@@ -168,11 +168,11 @@ ylabel(cbar, 'Time (s)');
 % 
 % plot_spectrum(final_pressure, Fs);
 %% Audio Output
-filename = "sys5_modes_var.wav";
-audiowrite(filename, final_pressure, Fs);
-
-%% Audio Play
-soundsc(final_pressure, Fs);
+% filename = "sys5_modes_var.wav";
+% audiowrite(filename, final_pressure, Fs);
+% 
+% %% Audio Play
+% soundsc(final_pressure, Fs);
 
 
 
