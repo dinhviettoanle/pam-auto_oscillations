@@ -43,6 +43,7 @@ N_delay=round(dt/te);
 %sigma = FWHM / 2.35482; % standard deviation of the function
 
 %% Fonction de réflexion
+
 %pas utilisé dans la simulation
 %
 %b = 1/(2*sigma^2);
@@ -52,11 +53,16 @@ k=w/c;
 Zr=Zc.*(0.25.*(k.*a).^2+0.6133j.*k.*a/16);
 Rw=(Zr-Zc)./(Zr+Zc);
 figure()
-%plot(w, 10*log10(abs(Rw)/max(abs(Rw))))
+% %plot(w, 10*log10(abs(Rw)/max(abs(Rw))))
 plot(w, abs(Rw))
 ylabel("|R(w)|"), xlabel("w")
 drawnow()
 
+r_t=ifftshift(ifft(Rw, 'nonsymmetric'));
+figure()
+plot(real(r_t))
+r_n=real(r_t);
+drawnow()
 %% Calcul de G(-p^-)
 %tiré de delay_line.m
 p_list = linspace(-1.5, 1.5, 10000);
@@ -87,21 +93,23 @@ q=0;%initial total pressure
 f=0;
 
 for ind = 1:N_SAMPLE-1
-    %q=q_o(ind)+reflectionFunction(a, b, dt, te, ind)*delay(q_o, n, ind);
-    q_refl(ind)=reflect(q_o, q_refl, ind, a/16, c, Zc);
+%     q=q_o(ind)+reflectionFunction(a, b, dt, te, ind)*delay(q_o, n, ind);
+    q_refl(ind)=reflect(q_o, q_refl, ind, a, c, Zc);
+%     refl=real(conv(q_o, r_t, 'same'));
+%     q_refl(ind)=refl(length(refl));
     q_i=delay(q_refl,N_delay,ind);
     q_o(ind+1)=interp1(G.x, G.y, -q_i);
-      
+    ind
     
 end
 
 q_o = q_o/max(abs(q_o));
-soundsc(q_o,fe)
+%soundsc(q_o,fe)
 figure()
 plot(q_o)
 
 if SAVEAUDIO
-    audiowrite(fileName, -q_o, fe);
+    audiowrite(fileName, q_o, fe);
     
 end
 

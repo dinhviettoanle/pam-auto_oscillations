@@ -41,22 +41,22 @@ if (N_delay==BUFFER_SIZE)
 end
 
 %% fonction de réflexion
-w=2*pi*linspace(-fe/2, fe/2, BUFFER_SIZE);
-k=w/c;
-Zr=Zc.*(0.25.*(k.*r).^2+0.6133j.*k.*r);
-Rw=(Zr-Zc)./(Zr+Zc);%.*exp(-2.*1j.*k.*l);% remplacé par le delay?
-figure()
-%plot(w, 10*log10(abs(Rw)/max(abs(Rw))))
-plot(w, abs(Rw))
-ylabel("|R(w)|"), xlabel("w")
-drawnow()
-refl=irfft((Rw));
-r_t=real(refl);
-r_t=r_t(1:BUFFER_SIZE);
-figure()
-plot((0:length(r_t)-1)*te, r_t)
-ylabel("r(t)"), xlabel('t(s)')
-drawnow()
+% w=2*pi*linspace(-fe/2, fe/2, BUFFER_SIZE);
+% k=w/c;
+% Zr=Zc.*(0.25.*(k.*r).^2+0.6133j.*k.*r);
+% Rw=(Zr-Zc)./(Zr+Zc);%.*exp(-2.*1j.*k.*l);% remplacé par le delay?
+% figure()
+% %plot(w, 10*log10(abs(Rw)/max(abs(Rw))))
+% plot(w, abs(Rw))
+% ylabel("|R(w)|"), xlabel("w")
+% drawnow()
+% refl=irfft((Rw));
+% r_t=real(refl);
+% r_t=r_t(1:BUFFER_SIZE);
+% figure()
+% plot((0:length(r_t)-1)*te, r_t)
+% ylabel("r(t)"), xlabel('t(s)')
+% drawnow()
 
 %% Calcul de G(-p^-)
 %tiré de delay_line.m

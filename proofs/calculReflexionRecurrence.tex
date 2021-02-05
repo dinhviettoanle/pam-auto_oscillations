@@ -1,0 +1,107 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[sc]{mathpazo}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+% \renewcommand{\familydefault}{\sfdefault}
+
+%\usepackage[pdftex,
+%            pdfauthor={LE Dinh-Viet-Toan},
+%           pdftitle={Title},
+%            pdfcreator={pdflatex},
+%            hidelinks]{hyperref}
+
+\usepackage{ragged2e}
+\usepackage[a4paper, right=2.5cm,left=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+
+\usepackage{mathtools} % Basic maths
+\usepackage{mathabx}
+\usepackage{indentfirst} % Indentation at the beginning of a section
+\usepackage{textcomp} % Extra characters
+\usepackage{todonotes} 
+\usepackage{multicol} % Multi columns
+\usepackage{cancel} % Draw line to cancel a term
+
+\usepackage[export]{adjustbox}
+\usepackage{subcaption}
+
+% Graphics
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,shadings,patterns}
+\usepackage{natbib}
+\usepackage{graphicx,wrapfig,lipsum}
+
+% Disable number in section
+\let\oldsection\section
+\renewcommand{\section}[1]{\oldsection*{#1}}
+\let\oldsubsection\subsection
+\renewcommand{\subsection}[1]{\oldsubsection*{\hspace{1em}#1}}
+
+% Extra commands
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+\newcommand{\pplus}{p^{+}}
+\newcommand{\pmoins}{p^{-}}
+\newcommand{\sqrttwoovtwo}{\frac{\sqrt{2}}{2}}
+\newcommand{\powinv}{^{-1}}
+
+
+
+% Math operators
+\DeclareMathOperator\Imspace{Im}
+
+\providecommand{\dividespace}{\vspace{1.6em}}
+
+\title{Calcul de la relation entrée/sortie associée à la fonction de réflexion }
+\author{}
+\date{}
+
+
+
+\begin{document}
+
+\maketitle 
+Nous cherchons à exprimer l'échantillon $p^-(n)$ de l'onde retour en fonction des échantillons précédents et de l'onde aller $p^+(n)$. Pour cela nous discrétisons l'équation différentielle associée à la fonction de réflexion $R(\omega)$ 
+Nous avons exprimé la réponse en fréquence de la fonction de réflexion :
+
+\begin{align}
+R(\omega) & = \frac{P^+(\omega)}{P^-(\omega)}\\
+& = \frac{Z_r(\omega)-Z_c}{Z_r(\omega)+Z_c}
+\end{align}
+Avec 
+\begin{align*}
+z_c & =\rho c/S\\
+Z_r & = Z_c\left(0.25(ka)^2+0.6133jka\right)
+\end{align*}
+$P^+$ désigne la transformée de Fourrier de l'onde aller, $P^-$ celle de l'onde retour. Dans la suite, on note $Q^{\pm}(\omega)=P^{\pm}(\omega)Z_c$, de transformée inverse $q_{\pm}(t)=p^{\pm}(t)Z_c$, et $z_r(\omega)=Z_cZ_r(\omega)$\\
+On en déduit, en regroupant les ondes retour dans le membre de gauche et les ondes allers dans le membre de droite :
+\begin{align*}
+Q^-\left[z_r(\omega)+1\right]&=Q^+\left[z_r(\omega)-1\right]\\
+\leftrightarrow 0.25 (a/c)^2\omega^2Q^-(\omega)+0.6133(a/c)j\omega Q^-(\omega) +Q^-(\omega) &=0.25(a/c)^2\omega^2Q^+(\omega)+0.6133j\omega Q^+(\omega)-Q^+(\omega)
+\end{align*}
+On obtient une équation différentielle reliant $q^+(t)$ et $q^-(t)$ :
+\begin{equation}
+-0.25(a/c)^2\frac{\mathrm{d}^2p^-(t)}{\mathrm{d}t^2}+0.6133(a/c)\frac{\mathrm{d}p^-(t)}{\mathrm{d}t}+p^-(t)=-0.25(a/c)^2\frac{\mathrm{d}^2p^+(t)}{\mathrm{d}t^2}+0.6133(a/c)\frac{\mathrm{d}p^+(t)}{\mathrm{d}t}-p^+(t)
+\label{eqdiff}
+\end{equation}
+On discrétise \ref{eqdiff} en utilisant un schéma en différences finies à gauche (bon terme ??) à l'ordre 2:
+\begin{align*}
+\frac{\mathrm{d}f(n)}{\mathrm{d}t} & =(3/2)f(n)-2f(n-1)+(1/2)f(n-2)\\
+\frac{\mathrm{d}^2f(n)}{\mathrm{d}t} & = 2f(n)-5f(n-1)+4f(n-2)1f(n-3)
+\end{align*}
+On obtient alors une expression de $q^-(n)$:
+\begin{align}
+q^-(n)=A^{-1}\left[E\left(q^+(n)\right)-a_1q^-(n-1)-a_2q^-(n-2)-a_3q^-(n-3)\right]
+\end{align}
+Avec
+\begin{align*}
+E\left(q^+(n)\right) & =-0.25(a/c)^2\frac{\mathrm{d}^2p^+(n)}{\mathrm{d}t^2}+0.6133(a/c)\frac{\mathrm{d}p^+(n)}{\mathrm{d}t}-p^+(n)\\
+a_1 & =-2\times0.6133\frac{a}{c}+5\times0.25\left(\frac{a}{c}\right)^2\\
+a_2 & =0.5\times0.6133\frac{a}{c}+4\times0.25\left(\frac{a}{c}\right)^2\\
+a_3 & =-1\times0.25\left(\frac{a}{c}\right)^2
+\end{align*}
+
+
+\end{document}
+
+
