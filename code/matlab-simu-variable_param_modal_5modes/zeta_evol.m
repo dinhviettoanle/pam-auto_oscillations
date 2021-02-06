@@ -1,5 +1,5 @@
 function zeta = zeta_evol(t)
-%GAMMA_EVOL 
+%ZETA_EVOL 
 % Linear up to 0.7, constant, linear down to 0
 % if t < 2
 %     zeta = 0.7/2 * t;
@@ -14,6 +14,6 @@ function zeta = zeta_evol(t)
 % Linear up from 0.1 to 0.7
 % zeta = 0.1 + 0.8/6*t;
 
-zeta = 0.15;
+zeta = 0.4;
 end
 
