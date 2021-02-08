@@ -4,7 +4,7 @@ function [t, X] = simulate_5modes(t_end, Fs)
 %   Detailed explanation goes here
 
 load all_res.mat all_res;
-fprintf("Pre-processdone  ! ");
+fprintf("Pre-process done ! \n ");
 
 % fprintf("Simulation with gamma = %f ; zeta = %f \n", gamma, zeta)
 sigma = 1e-9;

@@ -6,7 +6,7 @@ clear textprogressbar;
 
 %% Simulation
 
-t_end = 6;
+t_end = 29;
 Fs = 44100;
 
 [t, X] = simulate_5modes(t_end, Fs);

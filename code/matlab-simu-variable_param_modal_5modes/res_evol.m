@@ -1,18 +1,13 @@
 function res = res_evol(t, all_res)
 %RES_EVOL 
 
-
-if (0 <= t) && (t < 2)
-    res = reshape(all_res(1,:,:), [5,3]);
-elseif (2 <= t) && (t < 4)
-    res = reshape(all_res(2,:,:), [5,3]);
-elseif (4 <= t) && (t < 6)
-    res = reshape(all_res(3,:,:), [5,3]);
+if t == 0
+    chosen_index = 1;
 else
-    fprintf("%f \n", t);
-    res = reshape(all_res(3,:,:), [5,3]);
+    chosen_index = ceil(t);
 end
 
+res = reshape(all_res(chosen_index,:,:), [5,3]);
 
 end
 
