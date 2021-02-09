@@ -46,14 +46,13 @@ for i = 1:N_SPLIT1
         fprintf("x1 = %f | x2 = %f\n", x1_list(i), x2_list(j));
         
         if COMPUTE_ALL || (svm_final.eval([gamma, zeta]) > 0)
-
             res = init_resonator_fun(l, R);
 
             % >>> Change here to choose another descriptor <<<
 %             [feature(j,i), feature_ex(j,i)] = descriptor_nearest_pitch(gamma, zeta, res, t_end, Fs, FRQ_REF, NOTES);
-            feature(j,i) = descriptor_periodic(gamma, zeta, res, t_end, Fs, true);
+%             feature(j,i) = descriptor_periodic(gamma, zeta, res, t_end, Fs, true);
 %             feature(j,i) = descriptor_in_tune(gamma, zeta, res, t_end, Fs, 164.8137784564349, true);
-%             feature(j,i) = descriptor_mir(gamma, zeta, res, t_end, Fs);
+            feature(j,i) = descriptor_mir(gamma, zeta, res, t_end, Fs);
 
             % === PLOTS ===
             figure(1);

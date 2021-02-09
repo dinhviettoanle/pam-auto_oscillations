@@ -48,7 +48,6 @@ end
 
 %% Plot all in subplot
 
-close all;
 figure('units','normalized','outerposition',[0 0 1 1])
 for i = 1:length(svm_saved)
     if ~isempty(svm_saved{i})

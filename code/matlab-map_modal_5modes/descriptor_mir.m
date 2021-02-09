@@ -5,8 +5,8 @@ function [feature] = descriptor_mir(gamma, zeta, res, t_end, Fs)
 p = X(:,1) + X(:,3) + X(:,5) + X(:,7) + X(:,9);
 mirobject = miraudio(p, Fs);
 
-%  char_computed = mirbrightness(mirobject);
-char_computed = mirattacktime(mirobject);
+ char_computed = mirbrightness(mirobject, 'CutOff', 1000);
+% char_computed = mirattacktime(mirobject);
 
 feature = mirgetdata(char_computed);
 
