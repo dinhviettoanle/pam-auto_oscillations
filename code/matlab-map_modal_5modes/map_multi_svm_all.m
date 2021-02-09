@@ -31,7 +31,8 @@ end
 
 %% Plot all
 close all;
-load descriptor_quasi_periodic-multi_svm.mat svm_saved
+% load descriptor_quasi_periodic-multi_svm.mat svm_saved
+% load in_tune_lenghts lengths_list
 for i = 1:length(svm_saved)
     if ~isempty(svm_saved{i})
         figure;
@@ -41,6 +42,23 @@ for i = 1:length(svm_saved)
         title("l = " + lengths_list(i));
         axis equal;
         drawnow();
+    end
+
+end
+
+%% Plot all in subplot
+
+close all;
+figure('units','normalized','outerposition',[0 0 1 1])
+for i = 1:length(svm_saved)
+    if ~isempty(svm_saved{i})
+        subplot(6,5,i);
+        svm_saved{i}.isoplot('legend', false, 'mpsty', 'r.', 'ppsty', 'b.', 'msvsty', 'r.', 'psvsty', 'b.');
+        xlabel("$\gamma$", "Interpreter", "latex");
+        ylabel("$\zeta$", "Interpreter", "latex");
+        title("l = " + lengths_list(i));
+%         axis equal;
+%         drawnow();
     end
 
 end

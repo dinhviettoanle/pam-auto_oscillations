@@ -30,7 +30,7 @@ end
 PU(1, end) = 10e5; % P_atm
 PU(2, end) = PU(1, end) / Z_r; 
 
-l_list = sqrt((Pabsc(2:end) - Pabsc(1:end)).^2 + (Prayon(2:end) - Prayon(1:end)).^2);
+l_list = sqrt((Pabsc(2:end) - Pabsc(1:end-1)).^2 + (Prayon(2:end) - Prayon(1:end-1)).^2);
 
 for i = (n_sec-1):-1:1
     x1 = Pabsc(i);

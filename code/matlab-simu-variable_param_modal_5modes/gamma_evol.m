@@ -8,7 +8,7 @@ function gamma = gamma_evol(t)
 %     gamma = -0.7/2 * (t-6);
 
 % Constant
-gamma = 0.7;
+gamma = 0.42;
 
 % Oscill
 % f = 0.5;

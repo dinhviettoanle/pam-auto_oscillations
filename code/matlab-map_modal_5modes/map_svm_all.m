@@ -13,7 +13,7 @@ x2_max = 1;
 
 
 %% Constants
-
+% >>> Forcément deux initialisations qui ne servent à rien <<< 
 R = 3e-2;
 gamma = 0.42;
 zeta = 0.15;
@@ -30,9 +30,12 @@ init_samples(:,2) = init_samples(:,2) * (x2_max - x2_min) + x2_min;
 classes = zeros(N_init_samples, 1);
 
 % >>> Changer ici l'axe et le descripteur <<<
+% Descripteurs OK
 % descriptor = @(x) descriptor_has_oscillations(x(:,1), x(:,2), res, t_end, Fs, false);
 descriptor = @(x) descriptor_periodic(x(:,1), x(:,2), res, t_end, Fs, false);
-% descriptor = @(x) descriptor_has_oscillations(gamma_i, zeta_i, init_resonator_fun(x(:,1), init_resonator_fun(x(:,2), t_end, Fs);
+% descriptor = @(x) descriptor_attack_time(x(:,1), x(:,2), res, t_end, Fs, false);
+% Descripteurs en test
+% descriptor = @(x) descriptor_in_tune(x(:,1), x(:,2), res, t_end, Fs, 164.8137784564349, false);
 
 
 for i=1:N_init_samples
@@ -47,6 +50,7 @@ svm.isoplot;
 xlabel("$\gamma$", "Interpreter", "latex");
 ylabel("$\zeta$", "Interpreter", "latex");
 axis equal;
+drawnow();
 
 %% Adaptive samples
 

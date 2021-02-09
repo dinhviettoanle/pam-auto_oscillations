@@ -5,8 +5,8 @@ clear;
 t_end = 2;
 Fs = 44100;
 
-N_SPLIT1 = 40;
-N_SPLIT2 = 40;
+N_SPLIT1 = 20;
+N_SPLIT2 = 20;
 
 COMPUTE_ALL = false;
 
@@ -25,7 +25,8 @@ x2_list = linspace(x2_min, x2_max, N_SPLIT2);
 R = 3e-2;
 gamma = 0.42;
 zeta = 0.15;
-l = 0.37;
+% l = 0.4934;
+l = 0.37; % apparemment que du quasi periodique
 [FRQ_REF, NOTES] = utils_generate_frq_notes();
 
 %% Main loop
@@ -51,6 +52,8 @@ for i = 1:N_SPLIT1
             % >>> Change here to choose another descriptor <<<
 %             [feature(j,i), feature_ex(j,i)] = descriptor_nearest_pitch(gamma, zeta, res, t_end, Fs, FRQ_REF, NOTES);
             feature(j,i) = descriptor_periodic(gamma, zeta, res, t_end, Fs, true);
+%             feature(j,i) = descriptor_in_tune(gamma, zeta, res, t_end, Fs, 164.8137784564349, true);
+%             feature(j,i) = descriptor_mir(gamma, zeta, res, t_end, Fs);
 
             % === PLOTS ===
             figure(1);
@@ -91,8 +94,11 @@ plot_2d_curve(x1_list, feature_ex);
 gamma = 0.7; 
 zeta = 0.3;
 
-gamma = 0.747998947602689;
+gamma = 0.747998947602689; % Limite de domaine
 zeta = 0.444117533634140;
+
+gamma = 0.8;
+zeta = 0.3;
 
 % Quasi periodique
 gamma = 0.4;
@@ -102,14 +108,15 @@ gamma = 0.766339983140049;
 zeta = 0.494809986252063;
 
 % pour l =0.37
-gamma = 0.641025602817535;
-zeta = 0.205128192901611;
+% gamma = 0.641025602817535;
+% zeta = 0.205128192901611;
 
 % Frequence chelou
 % gamma = 0.42;
 % zeta = 0.15;
-l = 0.37;
 
+l = 0.37;
+R = 3e-2;
 %%
 res = init_resonator_fun(l, R);
 
@@ -124,7 +131,7 @@ snd_plot = (p.^2)/mean(p.^2);
 plot(snd_plot);
 hold on;
 plot([0.75*length(snd_plot), 0.75*length(snd_plot)], [0, max(snd_plot)]);
-
+descriptor_periodic(gamma, zeta, res, t_end, Fs, true);
 
 % --- MIR Toolbox ---
 % mirgetdata(mirscalar) -> ce qu'on veut
