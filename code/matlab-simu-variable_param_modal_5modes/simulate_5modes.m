@@ -7,7 +7,6 @@ load all_res.mat all_res;
 fprintf("Pre-process done ! \n ");
 
 % fprintf("Simulation with gamma = %f ; zeta = %f \n", gamma, zeta)
-sigma = 1e-9;
 
 options = odeset('AbsTol',1e-4, 'OutputFcn',@odetpbar);
 % options = odeset('AbsTol',1e-4, 'OutputFcn',@odeplot);
@@ -21,7 +20,7 @@ tspan = linspace(0, t_end, t_end*Fs);
 
 % -- Pour un resonateur fixe --
 res = init_resonator_fun(0.37, 3e-2);
-ode = @(t,p) systdyn_5modes(t, p, res, gamma_evol(t), zeta_evol(t), sigma);
+ode = @(t,p) systdyn_5modes(t, p, res, gamma_evol(t), zeta_evol(t));
 
 
 [t, X] = ode45(ode, tspan, X0, options);

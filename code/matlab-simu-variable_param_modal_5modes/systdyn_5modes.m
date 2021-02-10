@@ -1,4 +1,4 @@
-function dydt = systdyn_5modes(t, y, res, g, z, s)
+function dydt = systdyn_5modes(t, y, res, g, z)
 %SYSTDYN_5MODES Fonction de mise a jour des p et dp pour un systeme a 5
 %modes
 % g : gamma
