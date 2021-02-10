@@ -4,8 +4,8 @@ clear;
 
 load in_tune_lengths.mat lengths_list;
 
-N_init_samples = 50;
-N_edsd = 100;
+N_init_samples = 25;
+N_edsd = 75;
 
 x1_min = 0;
 x1_max = 1;
@@ -17,6 +17,7 @@ x2_max = 1;
 
 R = 3e-2;
 svm_saved = {};
+load("descriptor_quasi_periodic-multi_svm.mat", "svm_saved");
 [FRQ_REF, NOTES] = utils_generate_frq_notes();
 
 

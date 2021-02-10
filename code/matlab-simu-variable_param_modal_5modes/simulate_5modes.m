@@ -20,7 +20,7 @@ tspan = linspace(0, t_end, t_end*Fs);
 % ode = @(t,p) systdyn_5modes(t, p, res_evol(t, all_res), gamma_evol(t), zeta_evol(t), sigma);
 
 % -- Pour un resonateur fixe --
-res = init_resonator_fun(0.49343, 3e-2);
+res = init_resonator_fun(0.37, 3e-2);
 ode = @(t,p) systdyn_5modes(t, p, res, gamma_evol(t), zeta_evol(t), sigma);
 
 

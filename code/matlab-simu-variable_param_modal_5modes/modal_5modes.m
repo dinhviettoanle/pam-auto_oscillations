@@ -26,7 +26,9 @@ final_pressure = X(:,1) + X(:,3) + X(:,5) + X(:,7) + X(:,9);
 % ylabel('$\gamma$', 'Interpreter', 'latex');
 
 
-load("descriptor_has_oscillations-svm");
+% load("descriptor_has_oscillations-svm");
+load("descriptor_quasi_periodic-svm");
+
 t_dlist = (t(2:end)+t(1:(end-1)))/2;
 gamma_list = diff(X(:,end-1))./diff(t);
 zeta_list = diff(X(:,end))./diff(t);

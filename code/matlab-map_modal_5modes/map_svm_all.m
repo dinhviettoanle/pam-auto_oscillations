@@ -2,9 +2,10 @@
 close all;
 clear;
 
-t_end = 2;
+t_end = 6;
 Fs = 44100;
-N_init_samples = 50;
+N_init_samples = 25;
+N_edsd = 75;
 
 x1_min = 0;
 x1_max = 1;
@@ -54,7 +55,6 @@ drawnow();
 
 %% Adaptive samples
 
-N_edsd = 100;
 svm_col = CODES.sampling.edsd(descriptor, svm, [x1_min x2_min], [x1_max x2_max], 'iter_max', N_edsd, 'conv', false);
 svm_final = svm_col{end};
 
@@ -68,3 +68,24 @@ axis equal;
 %%%%% !! Save if needed !! %%%%%
 
 %% 
+
+t_end = 6;
+Fs = 44100;
+
+% gamma = 0.9; zeta = 0.4; % Periodique
+gamma = 0.5; zeta = 0.7; % Quasi periodique ??
+
+res = init_resonator_fun(l, R);
+
+[t, X] = simulate_5modes(gamma, zeta, res, t_end, Fs);
+p = X(:,1) + X(:,3) + X(:,5) + X(:,7) + X(:,9);
+
+figure;
+plot(linspace(0, t_end, t_end*Fs), p)
+
+figure;
+plot(linspace(0, t_end, t_end*Fs), p.^2);
+hold on;
+plot([0.75*t_end, 0.75*t_end], [0, max(p.^2)]);
+
+descriptor_periodic(gamma, zeta, res, t_end, Fs, false);

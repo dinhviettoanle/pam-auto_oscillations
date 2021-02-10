@@ -8,7 +8,7 @@ function [svm_saved] = make_one_map(res, x1_min, x1_max, x2_min, x2_max, N_init_
 
     classes = zeros(N_init_samples, 1);
     
-    t_end = 2;
+    t_end = 6;
     Fs = 44100;
 
     % >>> Changer ici l'axe et le descripteur <<<

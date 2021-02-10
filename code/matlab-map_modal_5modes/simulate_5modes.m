@@ -6,7 +6,7 @@ function [t, X] = simulate_5modes(gamma, zeta, res, t_end, Fs)
 fprintf("***** Simulation with gamma = %f ; zeta = %f *****\n", gamma, zeta)
 sigma = 1e-3;
 
-options = odeset('AbsTol',1e-4);
+options = odeset('AbsTol',1e-4, 'RelTol', 1e-4);
 
 X0 = [0.01;0; 0.01;0; 0.01;0; 0.01;0; 0.01;0]; % Condition init
 
