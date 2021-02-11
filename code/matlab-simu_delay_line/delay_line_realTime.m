@@ -20,10 +20,10 @@ c=340;          % Vitesse son
 u_A = 200;      % Debit entrant
 p_M = 75e3;     % Pression de placage
 
-gamma_const=0.62;
+gamma_const=0.47;
 %gamma = ones(1, N)*0.01;
 %gamma(N/2:N)=0; 
-zeta_const=0.6;
+zeta_const=0.15;
 %zeta = ones(1, N)*0.6;
 %zeta(N/2:N)=0;
 

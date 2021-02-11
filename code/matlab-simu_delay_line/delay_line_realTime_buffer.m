@@ -6,7 +6,7 @@ SAVEAUDIO=1;
 N_SAMPLE=100000;
 SAVEAUDIO=1
 BUFFER_SIZE=2048
-N_BUFFER=10;
+N_BUFFER=100;
 N_samples=N_BUFFER*BUFFER_SIZE;
 %% Delay line, real time
 %pour l'instant sans buffer
@@ -23,10 +23,10 @@ c=340;          % Vitesse son
 u_A = 200;      % Debit entrant
 p_M = 75e3;     % Pression de placage
 
-gamma_const=0.62;
+gamma_const=0.47;
 %gamma = ones(1, N)*0.01;
 %gamma(N/2:N)=0; 
-zeta_const=0.6;
+zeta_const=0.15;
 %zeta = ones(1, N)*0.6;
 %zeta(N/2:N)=0;
 
@@ -39,16 +39,21 @@ dt=2*l/c;       % Temps de retour de l'onde retour
 N_delay=round(dt/te);
 
 %% Fonction de réflexion
-% wc=0.40;
-% b=fir1(25, wc, 'low');
-% [r_t, t]=impz(b, 1, BUFFER_SIZE);
-win=gausswin(BUFFER_SIZE/4);
-r_t=-win(length(win)/2:end).';
+wc=0.02;%fait à la main, sonne plutôt bien
+b=fir1(46, wc, 'low');
+[r_t, t]=impz(b, 1, BUFFER_SIZE);
+% win=gausswin(BUFFER_SIZE);
+% r_t=-win(length(win)/2:end).';
+% r_t=r_t/abs(sum(r_t));
+%r_t=-[1, zeros(1,20)];
+r_t=-r_t;
 figure()
 
 plot(r_t)
 xlabel('temps (s)'), ylabel('r_t(t)')
 title('Fonction de réflexion')
+figure()
+freqz(b,1,BUFFER_SIZE)
 drawnow()
 %pas utilisé dans la simulation
 %
@@ -96,23 +101,37 @@ q_refl=zeros(1,BUFFER_SIZE);%initial incoming pressure
 q_refl_=zeros(1,BUFFER_SIZE);
 q_i=zeros(1,BUFFER_SIZE);
 q=0;%initial total pressure
-nn=zeros(1, N_SAMPLE);
-nn_ind=1
+q_n=0;
 n=0;%indice du buffer
 ind=1;%indice du sample
 out=zeros(1, N_BUFFER);
+
 while n < N_BUFFER
-    q_refl=real(cconv(q_o, r_t, BUFFER_SIZE));
+    q_o(ind)=interp1(G.x, G.y, -q_n);
+    q_refl=(cconv(q_o, r_t, BUFFER_SIZE));
+    q_i=circshift(q_refl, N_delay);
+    q_n=q_i(ind);
+%     points_p_minus(n) = p_n;
+%     p_n = G(p_n, p_minus_list, p_plus_list);
+%     points_p_plus(n) = p_n;
+    %q_refl=(cconv(q_o, r_t, BUFFER_SIZE));
     %q_refl(ind)=q_refl(ind);
     %q_refl=cconv(q_o, r_t, BUFFER_SIZE);
     %q_i(ind)=q_refl(ind);
-    q_i=circshift(q_refl, N_delay);
+    %q_i=circshift(q_refl, N_delay);
     %q_delay=circshift(q_i, N_delay);
-    new_q_o=interp1(G.x, G.y, -q_i(ind));
+    %new_q_o=interp1(G.x, G.y, -q_i(ind));
     
-    q_o(ind)=new_q_o;
+    %q_o(mod(ind, BUFFER_SIZE)+1)=new_q_o;
     ind=mod(ind, BUFFER_SIZE)+1;
-    
+    if ind==1
+        "1"
+    end
+    if ind==BUFFER_SIZE
+        "BUFFER_SIZE"
+        
+    end
+        
     if mod(ind, BUFFER_SIZE)==0
         out=cat(2, out, q_o);
         n=n+1
@@ -126,14 +145,10 @@ while n < N_BUFFER
 %        q_o(ind+1)=new_q_o;
 %        ind=mod(ind+1, BUFFER_SIZE)+1; 
 %     end
-    nn(nn_ind)=ind;
-    nn_ind=nn_ind+1;
-  
-    
-    
+        
 end
 
-out = out/max(abs(out));
+%out = out/max(abs(out));
 %soundsc(q_o,fe)
 figure()
 plot(out)
