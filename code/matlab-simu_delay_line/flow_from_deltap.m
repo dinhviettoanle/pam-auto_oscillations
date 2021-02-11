@@ -1,6 +1,7 @@
 function flow = flow_from_deltap(u_A, delta_p, p_M)
-%FLOW_FROM_DELTAP Summary of this function goes here
-%   Detailed explanation goes here
+% Input -> delta_p = différence pression dans bouche vs bec
+% Output -> u_dp = débit 
+
 if delta_p > p_M
     flow = 0;
 else
