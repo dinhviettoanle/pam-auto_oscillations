@@ -11,7 +11,7 @@ TOT_T = 6;
 %     gamma = -0.7/2 * (t-6);
 
 % Constant
-% gamma = 0.35;
+gamma = 0.30;
 
 % Oscill
 % f = 0.5;
@@ -21,8 +21,8 @@ TOT_T = 6;
 % gamma = 0.1 + 0.8/6 * t;
 
 % From - to
-gamma0 = 0.5;
-gamma1 = 0.9;
-gamma = gamma1*(t/TOT_T) + gamma0*(1 - t/TOT_T);
+% gamma0 = 0.5;
+% gamma1 = 0.9;
+% gamma = gamma1*(t/TOT_T) + gamma0*(1 - t/TOT_T);
 end
 

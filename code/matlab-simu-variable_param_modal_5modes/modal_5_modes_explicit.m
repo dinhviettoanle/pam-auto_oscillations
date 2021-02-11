@@ -10,7 +10,8 @@ t_end = 6;
 Fs = 44100;
 
 [t, X] = simulate_5modes_explicit(t_end, Fs);
-final_pressure = X(:,1) + X(:,3) + X(:,5) + X(:,7) + X(:,9);
+% final_pressure = X(:,1);
+% final_pressure = X(:,1) + X(:,3) + X(:,5) + X(:,7) + X(:,9);
 
 %% Plots
 
