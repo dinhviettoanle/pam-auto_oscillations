@@ -77,8 +77,8 @@ ylabel(cbar, 'Time (s)');
 % 
 % plot_spectrum(final_pressure, Fs);
 %% Audio Output
-filename = "sys5_modes_var.wav";
-audiowrite(filename, final_pressure, Fs);
+% filename = "sys5_modes_var.wav";
+% audiowrite(filename, final_pressure, Fs);
 
 %% Audio Play
 soundsc(final_pressure, Fs);

@@ -33,11 +33,11 @@ classes = zeros(N_init_samples, 1);
 % >>> Changer ici l'axe et le descripteur <<<
 % Descripteurs OK
 % descriptor = @(x) descriptor_has_oscillations(x(:,1), x(:,2), res, t_end, Fs, false);
-descriptor = @(x) descriptor_periodic(x(:,1), x(:,2), res, t_end, Fs, false);
+% descriptor = @(x) descriptor_periodic(x(:,1), x(:,2), res, t_end, Fs, false);
 % descriptor = @(x) descriptor_attack_time(x(:,1), x(:,2), res, t_end, Fs, false);
 % Descripteurs en test
 % descriptor = @(x) descriptor_in_tune(x(:,1), x(:,2), res, t_end, Fs, 164.8137784564349, false);
-
+descriptor = @(x) descriptor_diverge(x(:,1), x(:,2), res, t_end, Fs, false);
 
 for i=1:N_init_samples
     classes(i) = descriptor(init_samples(i,:));

@@ -7,7 +7,7 @@ clear textprogressbar;
 %% Constants
 R0 = 3e-2;
 R1 = 3e-2;
-l = 0.253030303030303;
+l = 0.5;
 
 N_sub_perce = 2;
 Pabsc = linspace(0, l, N_sub_perce);
