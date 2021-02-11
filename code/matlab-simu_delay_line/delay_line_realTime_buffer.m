@@ -2,12 +2,15 @@ clear all;
 close all;
 
 fileName="realTimedelayLine.wav";
-SAVEAUDIO=0;
-N_SAMPLE=10000;
-
+SAVEAUDIO=1;
+N_SAMPLE=100000;
+SAVEAUDIO=1
+BUFFER_SIZE=2048
+N_BUFFER=10;
+N_samples=N_BUFFER*BUFFER_SIZE;
 %% Delay line, real time
 %pour l'instant sans buffer
-fe=20e3;
+fe=44e3;
 te=1/fe;
 %N=3*fe;
 
@@ -35,23 +38,20 @@ Zc=rho0*c/S;    % Impedance caracteristique
 dt=2*l/c;       % Temps de retour de l'onde retour
 N_delay=round(dt/te);
 
-%% Reflection function
-
-%FWHM = 0.25 * dt; % Full Width at Half Maximum (cf MCINTYRE after eq. (19))
-
-% FWHM = 2*sqrt(2*log(2))*sigma = 2.35482*sigma % cf https://en.wikipedia.org/wiki/Full_width_at_half_maximum
-%sigma = FWHM / 2.35482; % standard deviation of the function
-
 %% Fonction de réflexion
-wc=0.47;%correspond à la fréquence (normalisée) à laquelle Rw commence à faire n'importe quoi
-b=fir1(20,wc, 'low');
-[r_t, t]= impz(b, 1, 20, fe);
-r_t=-1;
+% wc=0.40;
+% b=fir1(25, wc, 'low');
+% [r_t, t]=impz(b, 1, BUFFER_SIZE);
+win=gausswin(BUFFER_SIZE/4);
+r_t=-win(length(win)/2:end).';
 figure()
-plot(t, r_t)
+
+plot(r_t)
 xlabel('temps (s)'), ylabel('r_t(t)')
 title('Fonction de réflexion')
 drawnow()
+%pas utilisé dans la simulation
+%
 %b = 1/(2*sigma^2);
 %a = -1/(sigma*sqrt(2*pi)); % a is negative so int(r(t)) equals -1 (eq (6) MCINTYRE)
 % w=2*pi*linspace(-fe/2, fe/2, 1000);
@@ -91,42 +91,64 @@ drawnow()
 %% delay line
 %initialisation
 t = 0:te:1-te;
-q_o=zeros(1,N_SAMPLE); % Initial output pressure
-q_refl=zeros(1,N_SAMPLE);%initial incoming pressure
-q_i=0;
-
+q_o=zeros(1,BUFFER_SIZE); % Initial output pressure
+q_refl=zeros(1,BUFFER_SIZE);%initial incoming pressure
+q_refl_=zeros(1,BUFFER_SIZE);
+q_i=zeros(1,BUFFER_SIZE);
 q=0;%initial total pressure
-f=0;
-
-for ind = 1:N_SAMPLE-1
-%     q=q_o(ind)+reflectionFunction(a, b, dt, te, ind)*delay(q_o, n, ind);
-%     q_refl(ind)=reflect(q_o, q_refl, ind, a/16, c, te);
-%     refl=real(conv(q_o, r_t, 'same'));
-%     q_refl(ind)=refl(length(refl));
-    refl=conv(q_refl, r_t);
-    q_refl(ind)=refl(ind+length(r_t)-1);
-    q_i=delay(q_refl,N_delay,ind);
-    q_o(ind+1)=interp1(G.x, G.y, -q_i);
-    ind
+nn=zeros(1, N_SAMPLE);
+nn_ind=1
+n=0;%indice du buffer
+ind=1;%indice du sample
+out=zeros(1, N_BUFFER);
+while n < N_BUFFER
+    q_refl=real(cconv(q_o, r_t, BUFFER_SIZE));
+    %q_refl(ind)=q_refl(ind);
+    %q_refl=cconv(q_o, r_t, BUFFER_SIZE);
+    %q_i(ind)=q_refl(ind);
+    q_i=circshift(q_refl, N_delay);
+    %q_delay=circshift(q_i, N_delay);
+    new_q_o=interp1(G.x, G.y, -q_i(ind));
+    
+    q_o(ind)=new_q_o;
+    ind=mod(ind, BUFFER_SIZE)+1;
+    
+    if mod(ind, BUFFER_SIZE)==0
+        out=cat(2, out, q_o);
+        n=n+1
+    end
+%     if mod(ind+1, BUFFER_SIZE)==0
+%         q_o(ind+1)=new_q_o;
+%         out=cat(2, out, q_o);
+%         ind=BUFFER_SIZE;
+%         n=n+1;
+%     else
+%        q_o(ind+1)=new_q_o;
+%        ind=mod(ind+1, BUFFER_SIZE)+1; 
+%     end
+    nn(nn_ind)=ind;
+    nn_ind=nn_ind+1;
+  
+    
     
 end
 
-q_o = q_o/max(abs(q_o));
-soundsc(q_o,fe)
+out = out/max(abs(out));
+%soundsc(q_o,fe)
 figure()
-plot(q_o)
+plot(out)
 
 if SAVEAUDIO
-    audiowrite(fileName, q_o, fe);
+    audiowrite(fileName, out, fe);
     
 end
 
 %% FFT
-% S=fftshift(fft(q_o));
-% SS=abs(S);
-% figure()
-% f=linspace(-fe/2, fe/2, length(S));
-% plot(f, 10*log10(SS/max(SS)))
+S=fftshift(fft(q_o));
+SS=abs(S);
+figure()
+f=linspace(-fe/2, fe/2, length(S));
+plot(f, 10*log10(SS/max(SS)))
 
 
 

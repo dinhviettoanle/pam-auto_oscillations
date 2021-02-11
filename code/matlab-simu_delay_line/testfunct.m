@@ -8,14 +8,22 @@ a=2e-2;         % Rayon tube
 S=pi*a^2;       % Section tube
 l=50e-2;        % Longueur tube
 Zc=rho0*c/S;
+fe=10e3;
+te=1/fe;
 
-n=0:100;
+wc=0.27;
+b=fir1(3, wc, 'low');
+[h, t]=impz(b, 1);
+
+n=1:1024;
 dir=[1, zeros(1, length(n)-1)];
-p_o=zeros(1, length(n));
-
-for ind =n+1
-    p_o(ind)=reflect(dir,p_o, ind, a, c, Zc);
-    
-end
+p_o=conv(dir, h);
 
 plot(p_o)
+
+b=fir1(2, 0.20, 'low');
+[r_t, t]=impz(b, 10);
+figure()
+plot(t, r_t)
+xlabel('temps (s)'), ylabel('r_t(t)')
+title('Fonction de réflexion')
