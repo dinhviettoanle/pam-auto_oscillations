@@ -31,15 +31,18 @@ zeta_const=0.15;
 %zeta(N/2:N)=0;
 
 %instrument
+f_note= 547
+dt=1/f_note
+l=0.5*dt*c
 a=2e-2;         % Rayon tube
 S=pi*a^2;       % Section tube
-l=50e-2;        % Longueur tube
+%l=50e-2;        % Longueur tube
 Zc=rho0*c/S;    % Impedance caracteristique
-dt=2*l/c;       % Temps de retour de l'onde retour
+%dt=2*l/c;       % Temps de retour de l'onde retour
 N_delay=round(dt/te);
 
 %% Fonction de réflexion
-wc=0.02;%fait à la main, sonne plutôt bien
+wc=0.1;%fait à la main, sonne plutôt bien
 b=fir1(46, wc, 'low');
 [r_t, t]=impz(b, 1, BUFFER_SIZE);
 % win=gausswin(BUFFER_SIZE);
@@ -107,7 +110,8 @@ ind=1;%indice du sample
 out=zeros(1, N_BUFFER);
 
 while n < N_BUFFER
-    q_o(ind)=interp1(G.x, G.y, -q_n);
+    %q_o(ind)=interp1(G.x, G.y, -q_n);
+    q_o(ind)=compG(gamma_const, zeta_const, -q_n);
     q_refl=(cconv(q_o, r_t, BUFFER_SIZE));
     q_i=circshift(q_refl, N_delay);
     q_n=q_i(ind);
@@ -132,7 +136,7 @@ while n < N_BUFFER
         
     end
         
-    if mod(ind, BUFFER_SIZE)==0
+    if ind==1
         out=cat(2, out, q_o);
         n=n+1
     end
