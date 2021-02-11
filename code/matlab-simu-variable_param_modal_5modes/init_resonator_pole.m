@@ -1,11 +1,11 @@
-function [res] = init_resonator_fun(l, R)
-
-%% Constants
-Pabsc = linspace(0, l, 2);
-Prayon = ones(1, 2) * R; 
+function [res] = init_resonator_pole(l, R)
+N_sub_perce = 2;
+Pabsc = linspace(0, l, N_sub_perce);
+Prayon = R * (l - Pabsc)/l + R * Pabsc/l; 
 
 rho0 = 1.225;
 c = 340;
+
 
 %% Impédance entrée
 
@@ -19,25 +19,34 @@ end
 
 S_out = pi * R^2;
 Z_th = Z_th * S_out/(rho0*c);
+
 %% Recherche frequences de resonnance
 Fs = 8000;
 
 [height_peaks_th, index_peaks_th] = findpeaks(abs(Z_th));
 frq_peaks_th = index_peaks_th * (Fs/2)/length(Z_th);
 
+
 %% Calcul des fréquences et facteurs de qualite
 
-ifft_z = real(irfft(Z_th));
-[frq_res_esprit, damping_esprit] = esprit(ifft_z, 1500, 10);
+list_frq = zeros(1,5);
+list_Q = zeros(1,5);
 
-frq_res_esprit = frq_res_esprit * Fs + freq_th(1);
-Q_esprit = -1./(2*damping_esprit);
+alpha = 1.044;
+mu = 1.708e-5;
 
+
+for i = 1:5
+    frq_th = frq_peaks_th(i);
+    list_frq(i) = frq_th;
+    gamma_n = (2*i-1)*pi/2;
+    k_n = gamma_n / l;
+    list_Q(i) = 1/((2*alpha)/R * sqrt(mu*l/(rho0*gamma_n*c)) + 0.5 * (k_n*R)^2/gamma_n);
+end
+    
 
 %% Attribution frq / Q
-list_frq = sort(frq_res_esprit(1:2:end), 'ascend'); % tri des frq par ordre croissant
-list_Q = sort(Q_esprit(1:2:end), 'descend'); % tri des Q par ordre decroissant
-list_F = ones(1,12) * (2*c/l); % facteurs modaux
+list_F = ones(1,12) * (2*c/0.5); % facteurs modaux
 
 res = zeros(5, 3);
 for j = 1:5
@@ -45,6 +54,7 @@ for j = 1:5
     res(j,2) = list_Q(j);
     res(j,3) = list_F(j);
 end
+
 
 
 end
