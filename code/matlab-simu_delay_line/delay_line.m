@@ -27,7 +27,7 @@ for gamma = [0.22 0.42 0.65]
         u_p_list(i) = F(p_list(i), gamma, zeta);
     end
     hold on;
-   a = plot(p_list, u_p_list);
+    a = plot(p_list, u_p_list);
 end
 xlim([-1.5 1.5]);
 ylim([-0.4, 0.4]);
