@@ -1,8 +1,8 @@
 {
-	"name" : "model_test",
+	"name" : "modal_method",
 	"version" : 1,
 	"creationdate" : 3695928698,
-	"modificationdate" : 3695928703,
+	"modificationdate" : 3695983878,
 	"viewrect" : [ 25.0, 106.0, 300.0, 500.0 ],
 	"autoorganize" : 1,
 	"hideprojectwindow" : 0,
@@ -14,6 +14,11 @@
 				"kind" : "patcher",
 				"local" : 1,
 				"toplevel" : 1
+			}
+,
+			"gui.maxpat" : 			{
+				"kind" : "patcher",
+				"local" : 1
 			}
 
 		}
