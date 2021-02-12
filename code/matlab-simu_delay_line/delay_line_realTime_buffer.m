@@ -43,20 +43,21 @@ N_delay=round(dt/te);
 
 %% Fonction de réflexion
 wc=0.1;%fait à la main, sonne plutôt bien
-b=fir1(46, wc, 'low');
-[r_t, t]=impz(b, 1, BUFFER_SIZE);
-% win=gausswin(BUFFER_SIZE);
+%b=compB(wc, 17);%fait main, méthode de la fenêtre (poly TNS, p50-51)
+b=fir1(15, wc, 'low');%; référence
+[r_t, t]=impz(b, 1, length(b));
+%win=gausswin(BUFFER_SIZE);
 % r_t=-win(length(win)/2:end).';
 % r_t=r_t/abs(sum(r_t));
 %r_t=-[1, zeros(1,20)];
 r_t=-r_t;
 figure()
 
-plot(r_t)
+plot(t,r_t)
 xlabel('temps (s)'), ylabel('r_t(t)')
 title('Fonction de réflexion')
 figure()
-freqz(b,1,BUFFER_SIZE)
+freqz(b,1,length(r_t))
 drawnow()
 %pas utilisé dans la simulation
 %
@@ -73,7 +74,7 @@ drawnow()
 % drawnow()
 % 
 % r_t=ifftshift(ifft(Rw, 'nonsymmetric'));
-% figure()
+% figure()2
 % plot(real(r_t))
 % r_n=real(r_t);
 % drawnow()
@@ -101,7 +102,7 @@ drawnow()
 t = 0:te:1-te;
 q_o=zeros(1,BUFFER_SIZE); % Initial output pressure
 q_refl=zeros(1,BUFFER_SIZE);%initial incoming pressure
-q_refl_=zeros(1,BUFFER_SIZE);
+%q_refl_=zeros(1,BUFFER_SIZE);
 q_i=zeros(1,BUFFER_SIZE);
 q=0;%initial total pressure
 q_n=0;
@@ -112,7 +113,7 @@ out=zeros(1, N_BUFFER);
 while n < N_BUFFER
     %q_o(ind)=interp1(G.x, G.y, -q_n);
     q_o(ind)=compG(gamma_const, zeta_const, -q_n);
-    q_refl=(cconv(q_o, r_t, BUFFER_SIZE));
+    q_refl=cconv(q_o, r_t, BUFFER_SIZE);
     q_i=circshift(q_refl, N_delay);
     q_n=q_i(ind);
 %     points_p_minus(n) = p_n;
