@@ -14,13 +14,14 @@ TOT_T = 6;
 % zeta = 0.7 - 0.6/6*t;
 
 % Linear up from 0.1 to 0.7
-% zeta = 0.1 + 0.9/6*t;
+zeta = 0.1 + 0.9/6*t;
 
-% zeta = 0.4;
+% Constant
+% zeta = 0.44;
 
 % From - to
-zeta0 = 0.7;
-zeta1 = 0.4;
-zeta = zeta1*(t/TOT_T) + zeta0*(1 - t/TOT_T);
+% zeta0 = 0.7;
+% zeta1 = 0.4;
+% zeta = zeta1*(t/TOT_T) + zeta0*(1 - t/TOT_T);
 end
 

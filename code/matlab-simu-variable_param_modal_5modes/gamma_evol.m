@@ -11,7 +11,7 @@ TOT_T = 6;
 %     gamma = -0.7/2 * (t-6);
 
 % Constant
-gamma = 0.30;
+gamma = 0.8;
 
 % Oscill
 % f = 0.5;
