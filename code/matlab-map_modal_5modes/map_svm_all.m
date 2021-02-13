@@ -1,3 +1,5 @@
+%% Generation d'une carte par SVM et EDSD
+
 %% Init
 close all;
 clear;
@@ -7,14 +9,14 @@ Fs = 44100;
 N_init_samples = 25;
 N_edsd = 75;
 
-x1_min = 0;
+x1_min = 0; % En pratique, gamma_min
 x1_max = 1;
-x2_min = 0;
+x2_min = 0; % En pratque, zeta_min
 x2_max = 1;
 
 
 %% Constants
-% >>> Forcément deux initialisations qui ne servent à rien <<< 
+% Forcément deux initialisations qui ne servent à rien  
 R = 3e-2;
 gamma = 0.42;
 zeta = 0.15;
@@ -36,8 +38,9 @@ classes = zeros(N_init_samples, 1);
 % descriptor = @(x) descriptor_periodic(x(:,1), x(:,2), res, t_end, Fs, false);
 % descriptor = @(x) descriptor_attack_time(x(:,1), x(:,2), res, t_end, Fs, false);
 % Descripteurs en test
-% descriptor = @(x) descriptor_in_tune(x(:,1), x(:,2), res, t_end, Fs, 164.8137784564349, false);
-descriptor = @(x) descriptor_diverge(x(:,1), x(:,2), res, t_end, Fs, false);
+descriptor = @(x) descriptor_in_tune(x(:,1), x(:,2), res, t_end, Fs, 164.8137784564349, false);
+% descriptor = @(x) descriptor_diverge(x(:,1), x(:,2), res, t_end, Fs, false);
+
 
 for i=1:N_init_samples
     classes(i) = descriptor(init_samples(i,:));
@@ -58,7 +61,7 @@ drawnow();
 svm_col = CODES.sampling.edsd(descriptor, svm, [x1_min x2_min], [x1_max x2_max], 'iter_max', N_edsd, 'conv', false);
 svm_final = svm_col{end};
 
-%%
+%% Plot final SVM + EDSD
 figure;
 svm_final.isoplot;
 xlabel("$\gamma$", "Interpreter", "latex");
@@ -67,7 +70,7 @@ axis equal;
 
 %%%%% !! Save if needed !! %%%%%
 
-%% 
+%% Test unique
 
 t_end = 6;
 Fs = 44100;

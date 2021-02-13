@@ -1,5 +1,8 @@
 function res = res_evol(t, all_res)
-%RES_EVOL 
+%RES_EVOL Evolution du resonateur en fonction du temps
+% Inputs :
+%   t : Temps de calcul
+%   all_res : Résonateurs calculés qui sont in-tune
 
 if t == 0
     chosen_index = 1;

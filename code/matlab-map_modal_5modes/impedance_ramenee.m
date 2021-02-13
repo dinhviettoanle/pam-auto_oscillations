@@ -1,6 +1,11 @@
 function Z_e = impedance_ramenee(f, Pabsc, Prayon, SCREEN)
-%IMPEDANCE_RAMENEE Summary of this function goes here
-%   Detailed explanation goes here
+%IMPEDANCE_RAMENEE Algorithme d'impédance ramenee
+%   Renvoie l'impédance d'entrée d'un tube droit
+% Inputs :
+%   f : Vecteur de fréquences
+%   Pabsc : Positions de discretisation du tuyau (de taille 2 si tuyau droit en pratique...)
+%   Prayon : Rayon du tube aux positions de discretisation du tuyau
+%   SCREEN : Avec ou sans ecran pour l'impedance de rayonnement
 
 % Constants
 rho0 = 1.225;

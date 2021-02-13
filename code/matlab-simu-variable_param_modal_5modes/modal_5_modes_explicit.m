@@ -1,4 +1,4 @@
-%% Approche Modale - Système à 5 modes
+%% Approche Modale - Système à 5 modes et résolution compatible real-time
 
 close all;
 clear;
@@ -11,8 +11,8 @@ Fs = 44100;
 
 [t, X] = simulate_5modes_explicit(t_end, Fs);
 % final_pressure = X(:,1);
-final_pressure = X(:,1) + X(:,3) + X(:,5);
-% final_pressure = X(:,1) + X(:,3) + X(:,5) + X(:,7) + X(:,9);
+% final_pressure = X(:,1) + X(:,3) + X(:,5);
+final_pressure = X(:,1) + X(:,3) + X(:,5) + X(:,7) + X(:,9);
 
 %% Plots
 

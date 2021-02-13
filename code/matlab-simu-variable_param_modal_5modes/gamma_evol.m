@@ -1,5 +1,5 @@
 function gamma = gamma_evol(t)
-%GAMMA_EVOL 
+%GAMMA_EVOL Evolution de gamma en fonction du temps
 
 TOT_T = 6;
 
@@ -11,7 +11,7 @@ TOT_T = 6;
 %     gamma = -0.7/2 * (t-6);
 
 % Constant
-gamma = 0.8;
+gamma = 0.47;
 
 % Oscill
 % f = 0.5;

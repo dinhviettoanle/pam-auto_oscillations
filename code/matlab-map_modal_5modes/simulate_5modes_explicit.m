@@ -1,11 +1,23 @@
 function [t, X] = simulate_5modes_explicit(gamma, zeta, res, t_end, Fs)
+%SIMULATE_5MODES Simule le son de l'instrument a 5 modes a paramtres constants
+% Resolution Runge-Kutta 4 ou Euler explicite (mais bof)
+% Inputs :
+%   gamma : Paramètre de pression dans la bouche adim
+%   zeta : Paramètre d'anche adim
+%   res : Matrice de taille N_MODES x 3 tel que :
+%       res(i,1) : pulsation du mode i
+%       res(i,2) : coeff de qualite du mode i
+%       res(i,3) : facteur modal du mode i
+%   t_end : Temps de fin de simulation
+%   Fs : Fréquence d'échantillonnage
+% Outputs :
+%   t : Pas de temps calcules
+%   X : Vecteur de taille n_samples x 10 tel que
+%       X(t, 1) : Pression du mode 1 (idem pour 3,5,7,9)
+%       X(t, 2) : Dérivée de la pression du mode 1 (idem pour 4,6,8,10)
 
 
 X0 = [0.01;0; 0.01;0; 0.01;0; 0.01;0; 0.01;0]; % Condition init, gamma, zeta
-
-
-% -- Pour un resonateur variable --
-% ode = @(t,p) systdyn_5modes(t, p, res_evol(t, all_res), gamma_evol(t), zeta_evol(t), sigma);
 
 % -- Pour un resonateur fixe --
 ode = @(t,p) systdyn_5modes(t, p, res, gamma, zeta, 1e-3);

@@ -1,3 +1,5 @@
+%% Generation d'une carte de valeurs d'un descripteur équitablement discrétisées  
+
 %% Init
 close all;
 clear;
@@ -5,8 +7,8 @@ clear;
 t_end = 6;
 Fs = 44100;
 
-N_SPLIT1 = 20;
-N_SPLIT2 = 20;
+N_SPLIT1 = 20; % Discretisation de l'axe X
+N_SPLIT2 = 20; % Discretisation de l'axe Y
 
 COMPUTE_ALL = false;
 
@@ -21,6 +23,7 @@ x1_list = linspace(x1_min, x1_max, N_SPLIT1);
 x2_list = linspace(x2_min, x2_max, N_SPLIT2);
 
 %% Constants
+% A priori, deux constantes inutiles ici, vu que ca changera dans la boucle
 
 R = 3e-2;
 gamma = 0.42;
@@ -31,8 +34,8 @@ l = 0.37;
 
 %% Main loop
 
-feature = zeros(N_SPLIT2, N_SPLIT1) * nan;
-feature_ex = zeros(N_SPLIT2, N_SPLIT1) * nan;
+feature = zeros(N_SPLIT2, N_SPLIT1) * nan; % Premier descripteur
+feature_ex = zeros(N_SPLIT2, N_SPLIT1) * nan; % Second descripteur (si besoin)
 
 load("saved maps/descriptor_has_oscillations-svm.mat");
 
@@ -128,7 +131,9 @@ plot(linspace(0, t_end, t_end*Fs), p.^2);
 % plot([0.75*length(snd_plot), 0.75*length(snd_plot)], [0, max(snd_plot)]);
 descriptor_periodic(gamma, zeta, res, t_end, Fs, true);
 
-%%
+
+%% Fonctions de plot
+
 function [] = plot_char_map(gamma_list, zeta_list, characteristics)
     % data = (characteristics - 164.814)/164.814;
     data = characteristics;

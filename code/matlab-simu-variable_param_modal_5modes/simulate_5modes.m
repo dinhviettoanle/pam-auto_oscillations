@@ -1,15 +1,22 @@
 function [t, X] = simulate_5modes(t_end, Fs)
-
-%GET_SIGNAL_5_MODES Summary of this function goes here
-%   Detailed explanation goes here
+%SIMULATE_5MODES Simule le son de l'instrument a 5 modes a paramtres possiblement variables
+% Resolution via ode45
+% Inputs :
+%   t_end : Temps de fin de simulation
+%   Fs : Fréquence d'échantillonnage
+% Outputs :
+%   t : Pas de temps calcules (pas forcement équitablement répartis)
+%   X : Vecteur de taille n_samples x 12 tel que
+%       X(t, 1) : Pression du mode 1 (idem pour 3,5,7,9)
+%       X(t, 2) : Dérivée de la pression du mode 1 (idem pour 4,6,8,10)
+%       ...
+%       X(t, 11) : Integrale du temps de gamma
+%       X(t, 12) : Integrale du temps de zeta
 
 load all_res.mat all_res;
 fprintf("Pre-process done ! \n ");
 
-% fprintf("Simulation with gamma = %f ; zeta = %f \n", gamma, zeta)
-
 options = odeset('AbsTol',1e-4, 'OutputFcn',@odetpbar);
-% options = odeset('AbsTol',1e-4, 'OutputFcn',@odeplot);
 
 X0 = [0.01;0; 0.01;0; 0.01;0; 0.01;0; 0.01;0; 0.4;0.1]; % Condition init, gamma, zeta
 

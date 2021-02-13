@@ -1,4 +1,8 @@
 function [] = plot_spectrum(X, Fs)
+%PLOT_SPECTRUM  Plot le spectre d'un signal
+% Inputs :
+%   X : Signal a analyser
+%   Fs : Fréquence d'échantillonnage
 
 figure;
 L = length(X);

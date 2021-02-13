@@ -1,4 +1,4 @@
-%% Approche Modale - Système à 5 modes
+%% Initialisation du résonateur avec ESPRIT
 
 close all;
 clear;

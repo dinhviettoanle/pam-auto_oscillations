@@ -1,6 +1,17 @@
 function [svm_saved] = make_one_map(res, x1_min, x1_max, x2_min, x2_max, N_init_samples, N_edsd, title_plot, svm_saved, index)
-%MAKE_ONE_MAP Summary of this function goes here
-%   Detailed explanation goes here
+%MAKE_ONE_MAP Genere une cartographie avec SVM
+%   Rajoute a une liste de SVM sauvegardees la nouvelle map
+% Inputs :
+%   res : Pulsations, Q, F des modes du resonateur
+%   x1_min : Valeur minimale en x (en pratique, gamma_min)
+%   x1_max : Valeur maximale en x (en pratique, gamma_max)
+%   x2_min : Valeur minimale en x (en pratique, zeta_min)
+%   x2_max : Valeur maximale en x (en pratique, zeta_max)
+%   N_init_samples : Nombre de samples dans le carre latin pour initialiser le SVM
+%   N_edsd : Nombre de samples pour affiner le SVM via EDSD
+%   title_plot : Titre du plot
+%   svm_saved : Liste de SVM cell ou on sauvegarde toutes nos SVM
+%   index : Position de la nouvelle map generee dans svm_saved
 
     init_samples = lhsdesign(N_init_samples,2);
     init_samples(:,1) = init_samples(:,1) * (x1_max - x1_min) + x1_min;

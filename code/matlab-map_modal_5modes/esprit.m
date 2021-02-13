@@ -1,6 +1,11 @@
 function [frq_esprit, damping_esprit] = esprit(x, n, K)
-%ESPRIT Summary of this function goes here
-%   Detailed explanation goes here
+%ESPRIT Algorithme Esprit
+%   Renvoie les fréquence de résonance (en Hz) et les coefficients
+%   d'amortissement d'un signal
+% Inputs :
+%   x : Signal a analyser
+%   n : 
+%   K : Nombre de modes a trouver
 
 N = length(x);
 l = N - n + 1;

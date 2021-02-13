@@ -1,4 +1,4 @@
-%% Approche Modale - Système à 5 modes
+%% Approche Modale - Système à 5 modes et résolution par ode45
 
 close all;
 clear;

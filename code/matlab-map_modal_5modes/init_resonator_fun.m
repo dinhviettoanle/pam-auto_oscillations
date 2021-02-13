@@ -1,4 +1,9 @@
 function [res] = init_resonator_fun(l, R)
+% INIT_RESONATOR_FUN Initialise le resonateur
+%   Renvoie les 5 premieres pulsations de resonnance, les facteurs de qualite et les facteurs modaux
+% Inputs :
+%   l : Longueur du tube
+%   R : Rayon du tube
 
 %% Constants
 Pabsc = linspace(0, l, 2);

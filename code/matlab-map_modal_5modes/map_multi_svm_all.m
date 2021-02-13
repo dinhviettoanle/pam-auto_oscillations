@@ -1,7 +1,11 @@
+%% Génération de plusieurs map pour des resonateurs différents
+% Donc pour des longueurs de tubes différents
+
 %% Init
 close all;
 clear;
 
+% Liste de longueurs tels que la fréquence fondamentale est a peu pres in tune
 load in_tune_lengths.mat lengths_list;
 
 N_init_samples = 25;
@@ -16,8 +20,8 @@ x2_max = 1;
 %% Constants
 
 R = 3e-2;
-svm_saved = {};
-load("descriptor_quasi_periodic-multi_svm.mat", "svm_saved");
+svm_saved = {}; % Si on commence une nouvelle etude, pour stocker les differents svm
+load("descriptor_quasi_periodic-multi_svm.mat", "svm_saved"); % Sinon, charger ce qui a déjà été fait
 [FRQ_REF, NOTES] = utils_generate_frq_notes();
 
 
@@ -30,10 +34,12 @@ for i = 1:length(lengths_list)
 end
 
 
-%% Plot all
+%% Plot all in different windows
 close all;
+
 % load descriptor_quasi_periodic-multi_svm.mat svm_saved
 % load in_tune_lenghts lengths_list
+
 for i = 1:length(svm_saved)
     if ~isempty(svm_saved{i})
         figure;

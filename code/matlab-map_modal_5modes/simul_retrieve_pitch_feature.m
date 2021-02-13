@@ -1,4 +1,21 @@
 function [note_name, f_tampered, main_frq, n_cents] = simul_retrieve_pitch_feature(gamma, zeta, res, t_end, Fs, FRQ_REF, NOTES)
+%SIMUL_RETRIEVE_PITCH_FEATURE Renvoie des elements de description du signal en termes de pitch
+% Inputs :
+%   gamma : Paramètre de pression dans la bouche adim
+%   zeta : Paramètre d'anche adim
+%   res : Matrice de taille N_MODES x 3 tel que :
+%       res(i,1) : pulsation du mode i
+%       res(i,2) : coeff de qualite du mode i
+%       res(i,3) : facteur modal du mode i
+%   t_end : Temps de fin de simulation
+%   Fs : Fréquence d'échantillonnage
+%   FRQ_REF : Fréquences de référence de la gamme tempérée
+%   NOTES : Nom des notes
+% Outputs : 
+%   note_name : Nom de la note en str
+%   f_tampered : Fréquence la plus proche de la gamme tempérée
+%   main_frq : Fréquence fondamentale du signal
+%   n_cents : Nombre de cents de déviation par rapport à la gamme tempérée
 
 
 [t, X] = simulate_5modes(gamma, zeta, res, t_end, Fs);

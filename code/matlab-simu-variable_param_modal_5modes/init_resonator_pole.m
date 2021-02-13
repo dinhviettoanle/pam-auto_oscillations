@@ -1,4 +1,10 @@
 function [res] = init_resonator_pole(l, R)
+% INIT_RESONATOR_FUN Initialise le resonateur par calcul de pôles
+%   Renvoie les 5 premieres pulsations de resonnance, les facteurs de qualite et les facteurs modaux
+% Inputs :
+%   l : Longueur du tube
+%   R : Rayon du tube
+
 N_sub_perce = 2;
 Pabsc = linspace(0, l, N_sub_perce);
 Prayon = R * (l - Pabsc)/l + R * Pabsc/l; 
@@ -46,7 +52,7 @@ end
     
 
 %% Attribution frq / Q
-list_F = ones(1,12) * (2*c/0.5); % facteurs modaux
+list_F = ones(1,12) * (2*c/l); % facteurs modaux
 
 res = zeros(5, 3);
 for j = 1:5

@@ -1,9 +1,14 @@
 function dydt = systdyn_1mode(t, y, res, g, z)
-%SYSTDYN_5MODES Fonction de mise a jour des p et dp pour un systeme a 5
-%modes
-% g : gamma
-% z : zeta
-% s : sigma, pour pas diviser par 0
+%SYSTDYN_1MODE Fonction de mise a jour des p et dp pour un systeme a 1 mode
+% Inputs :
+%   t : Temps ou l'on calcule ca (a priori, inutile)
+%   y : Vecteur de taille 1 x 4 qui contient p et dp au temps précédent
+%   res : Pulsations, Q, facteurs modaux des 5 modes
+%   g : gamma
+%   z : zeta
+% Outputs :
+%   dydt : Vecteur de taille 1 x 4 qui continet p et dp au temps suivant
+%   ainsi que g et z
 
 w = res(1,1); F = res(1,2); Q = res(1,3);
 
