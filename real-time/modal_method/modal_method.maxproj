@@ -2,7 +2,7 @@
 	"name" : "modal_method",
 	"version" : 1,
 	"creationdate" : 3695928698,
-	"modificationdate" : 3695983878,
+	"modificationdate" : 3696074168,
 	"viewrect" : [ 25.0, 106.0, 300.0, 500.0 ],
 	"autoorganize" : 1,
 	"hideprojectwindow" : 0,
@@ -14,11 +14,6 @@
 				"kind" : "patcher",
 				"local" : 1,
 				"toplevel" : 1
-			}
-,
-			"gui.maxpat" : 			{
-				"kind" : "patcher",
-				"local" : 1
 			}
 
 		}
