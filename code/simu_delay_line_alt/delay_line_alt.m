@@ -58,14 +58,12 @@ end
 
 % paramètres:
 % theta -> angle de la matrice de rotation R
-% Ref -> matrice de reflection
-% Rot -> matrice de rotation utilisant theta
 
 % paramètres fixes
 zeta = 0.6;
+theta = -45;
 
 % transformations
-theta = -45;
 Ref = [-1 0; 0 1];
 Rot = [cos(theta) -sin(theta); sin(theta) cos(theta)];
 
@@ -92,39 +90,40 @@ for gamma = [0.22 0.42 0.65]
 end
 
 
-%% Carte itérée
-
-% Construction courbe (p_n+, p_n-)
-
-gamma = 0.62;
-zeta = 0.6;
-
-p_list = linspace(-1.5, 1.5, 1000);
-p_plus_list = zeros(length(p_list),1);
-p_minus_list = zeros(length(p_list),1);
-
-for i = 1:length(p_list)
-    [p_minus_list(i), p_plus_list(i)] = G_plot(p_list(i), gamma, zeta);
-end
-
-% Construction suite p_n
-p_n = 0;
-N = 100;
-
-points_p_minus = zeros(N, 1);
-points_p_plus = zeros(N, 1);
-
-for n = 1:N
-    points_p_minus(n) = p_n;
-    p_n = G(p_n, p_minus_list, p_plus_list);
-    points_p_plus(n) = p_n;
-end
-
-figure;
-plot(p_minus_list, p_plus_list);
-hold on;
-scatter(points_p_minus, points_p_plus);
-grid on;
-
-figure;
-plot(points_p_plus);
+% %% Carte itérée
+% 
+% % Construction courbe (p_n+, p_n-)
+% 
+% % paramètres fixes
+% gamma = 0.62;
+% zeta = 0.6;
+% 
+% p_list = linspace(-1.5, 1.5, 1000);
+% p_plus_list = zeros(length(p_list),1);
+% p_minus_list = zeros(length(p_list),1);
+% 
+% for i = 1:length(p_list)
+%     [p_minus_list(i), p_plus_list(i)] = G_plot(p_list(i), gamma, zeta);
+% end
+% 
+% % Construction suite p_n
+% p_n = 0;
+% N = 100;
+% 
+% points_p_minus = zeros(N, 1);
+% points_p_plus = zeros(N, 1);
+% 
+% for n = 1:N
+%     points_p_minus(n) = p_n;
+%     p_n = G(p_n, p_minus_list, p_plus_list);
+%     points_p_plus(n) = p_n;
+% end
+% 
+% figure;
+% plot(p_minus_list, p_plus_list);
+% hold on;
+% scatter(points_p_minus, points_p_plus);
+% grid on;
+% 
+% figure;
+% plot(points_p_plus);
