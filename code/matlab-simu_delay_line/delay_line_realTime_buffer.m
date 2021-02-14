@@ -23,10 +23,10 @@ c=340;          % Vitesse son
 u_A = 200;      % Debit entrant
 p_M = 75e3;     % Pression de placage
 
-gamma_const=0.47;
+gamma_const=0.62;
 %gamma = ones(1, N)*0.01;
 %gamma(N/2:N)=0; 
-zeta_const=0.15;
+zeta_const=0.6;
 %zeta = ones(1, N)*0.6;
 %zeta(N/2:N)=0;
 
@@ -87,14 +87,19 @@ figure;
 p_plus_list = zeros(length(p_list),1);
 p_minus_list = zeros(length(p_list),1);
 for i = 1:length(p_list)
-    [p_minus_list(i), p_plus_list(i)] = G_plot(p_list(i), gamma_const, zeta_const);
+    [p_minus_list(i), p_plus_list(i)] = G_plot(p_list(i), gamma_const, gamma_const);
 end
 
-G=struct("x", p_minus_list, "y", p_plus_list);
-plot(G.x, G.y);
+p_plus= G_explicite(p_list,gamma_const, gamma_const);
+
+G_=struct("x", p_minus_list*(sqrt(2)/2), "y", p_plus_list*(sqrt(2)/2));
+G=struct("x", p_list, "y", p_plus);
+
+plot(G_.x, G_.y, G.x, G.y);
 xlim([-.5 .5]);
 ylim([-.5 .5]);
 xlabel("p-"), ylabel("p+")
+legend("rotation", "explicite")
 drawnow()
 
 %% delay line
@@ -111,8 +116,8 @@ ind=1;%indice du sample
 out=zeros(1, N_BUFFER);
 
 while n < N_BUFFER
-    %q_o(ind)=interp1(G.x, G.y, -q_n);
-    q_o(ind)=compG(gamma_const, zeta_const, -q_n);
+    q_o(ind)=interp1(G_.x, G_.y, -q_n);
+    %q_o(ind)=compG(gamma_const, zeta_const, -q_n);
     q_refl=cconv(q_o, r_t, BUFFER_SIZE);
     q_i=circshift(q_refl, N_delay);
     q_n=q_i(ind);
