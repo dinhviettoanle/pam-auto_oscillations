@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 34.0, 77.0, 1501.0, 929.0 ],
+		"rect" : [ -297.0, 245.0, 1501.0, 735.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -1843,8 +1843,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 318.0, 258.0, 58.0, 22.0 ],
-					"text" : "noteonoff"
+					"patching_rect" : [ 318.0, 258.0, 61.0, 22.0 ],
+					"text" : "noteonOff"
 				}
 
 			}
@@ -2168,7 +2168,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 118.0, 370.0, 81.0, 22.0 ],
-									"text" : "225."
+									"text" : "100."
 								}
 
 							}
@@ -2240,7 +2240,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 301.0, 364.429930210113525, 75.0, 22.0 ],
-									"text" : "0.867357"
+									"text" : "0.386364"
 								}
 
 							}
@@ -5344,7 +5344,8 @@
 			}
 , 			{
 				"name" : "NoteOnOff.maxpat",
-				"bootpath" : "~/Desktop",
+				"bootpath" : "D:/Documents/Cours/M2/PAM/pam-auto_oscillations/real-time/delay_line/Patchers",
+				"patcherrelativepath" : ".",
 				"type" : "JSON",
 				"implicit" : 1
 			}
