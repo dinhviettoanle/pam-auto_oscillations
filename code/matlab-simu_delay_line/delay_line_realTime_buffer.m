@@ -23,15 +23,15 @@ c=340;          % Vitesse son
 u_A = 200;      % Debit entrant
 p_M = 75e3;     % Pression de placage
 
-gamma_const=0.62;
+gamma_const=0.47;
 %gamma = ones(1, N)*0.01;
 %gamma(N/2:N)=0; 
-zeta_const=0.6;
+zeta_const=0.2;
 %zeta = ones(1, N)*0.6;
 %zeta(N/2:N)=0;
 
 %instrument
-f_note= 547
+f_note= 220
 dt=1/f_note
 l=0.5*dt*c
 a=2e-2;         % Rayon tube
@@ -59,48 +59,52 @@ title('Fonction de réflexion')
 figure()
 freqz(b,1,length(r_t))
 drawnow()
-%pas utilisé dans la simulation
-%
-%b = 1/(2*sigma^2);
-%a = -1/(sigma*sqrt(2*pi)); % a is negative so int(r(t)) equals -1 (eq (6) MCINTYRE)
-% w=2*pi*linspace(-fe/2, fe/2, 1000);
-% k=w/c;
-% Zr=Zc.*(0.25.*(k.*a).^2+0.6133j.*k.*a/16);
-% Rw=(Zr-Zc)./(Zr+Zc);
-% figure()
-% % %plot(w, 10*log10(abs(Rw)/max(abs(Rw))))
-% plot(w, abs(Rw))
-% ylabel("|R(w)|"), xlabel("w")
-% drawnow()
-% 
-% r_t=ifftshift(ifft(Rw, 'nonsymmetric'));
-% figure()2
-% plot(real(r_t))
-% r_n=real(r_t);
-% drawnow()
+
+% Gaussienne (mcIntyre)
+t=0:128;
+a=-0.9; %a<1
+b=(2*sqrt(2*log(2)))^(-2);
+r_t_gauss=a*exp(-b*t.^2);
+r_t=r_t_gauss/abs(sum(r_t_gauss));%normalisation
+figure()
+plot(r_t);
+xlabel('n'), ylabel('r(n)')
+% b = 1/(2*sigma^2);
+% a = -1/(sigma*sqrt(2*pi)); % a is negative so int(r(t)) equals -1 (eq (6) MCINTYRE)
+
+
 %% Calcul de G(-p^-)
 %tiré de delay_line.m
-p_list = linspace(-1.5, 1.5, 10000);
-
+p_list = linspace(-1.5, 1.5, 100);
+gamma_list=[0.2 0.3 0.4 0.5 0.6];
 figure;
-
+for gamma = gamma_list
 p_plus_list = zeros(length(p_list),1);
 p_minus_list = zeros(length(p_list),1);
 for i = 1:length(p_list)
-    [p_minus_list(i), p_plus_list(i)] = G_plot(p_list(i), gamma_const, gamma_const);
+    [p_minus_list(i), p_plus_list(i)] = G_plot(p_list(i), gamma, gamma_const);
 end
 
-p_plus= G_explicite(p_list,gamma_const, gamma_const);
+p_plus= G_explicite(p_list,gamma, gamma_const);
 
 G_=struct("x", p_minus_list*(sqrt(2)/2), "y", p_plus_list*(sqrt(2)/2));
 G=struct("x", p_list, "y", p_plus);
 
-plot(G_.x, G_.y, G.x, G.y);
+plot(G_.x, G_.y, "-o", G.x, G.y, "-x");
+hold on
+
+end
 xlim([-.5 .5]);
 ylim([-.5 .5]);
-xlabel("p-"), ylabel("p+")
+
+
+xlabel("q_i"), ylabel("q_o")
 legend("rotation", "explicite")
 drawnow()
+p_plus= G_explicite(p_list,gamma, zeta_const);
+
+G_=struct("x", p_minus_list*(sqrt(2)/2), "y", p_plus_list*(sqrt(2)/2));
+G=struct("x", p_list, "y", p_plus);
 
 %% delay line
 %initialisation
@@ -162,7 +166,7 @@ end
 %soundsc(q_o,fe)
 figure()
 plot(out)
-
+ylabel('p_o(n)'), xlabel('n')
 if SAVEAUDIO
     audiowrite(fileName, out, fe);
     
