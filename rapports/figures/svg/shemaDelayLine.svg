@@ -406,8 +406,8 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="3.959798"
-     inkscape:cx="165.73079"
+     inkscape:zoom="5.6"
+     inkscape:cx="122.67304"
      inkscape:cy="942.37119"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
@@ -429,7 +429,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -523,10 +523,10 @@
            height="50"
            width="50"
            id="rect5449" /></flowRegion><flowPara
-         style="font-size:10.6666668px"
-         id="flowPara5453">q<flowSpan
-   style="font-size:10.6666668px;baseline-shift:sub"
-   id="flowSpan5457">o</flowSpan>(t)</flowPara></flowRoot>    <flowRoot
+         style="font-size:10.66666698px"
+         id="flowPara5453">p<flowSpan
+   style="font-size:65%;baseline-shift:super"
+   id="flowSpan3394">+</flowSpan>(t)</flowPara></flowRoot>    <flowRoot
        xml:space="preserve"
        id="flowRoot5467"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;line-height:1.25;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
@@ -540,9 +540,9 @@
            y="242.51968"
            style="font-size:37.33333206px" /></flowRegion><flowPara
          id="flowPara5465"
-         style="font-size:10.6666668px">q<flowSpan
-   style="font-size:10.6666668px;baseline-shift:sub"
-   id="flowSpan5469">i</flowSpan>(t)</flowPara></flowRoot>    <flowRoot
+         style="font-size:10.66666698px">p<flowSpan
+   style="font-size:65%;baseline-shift:super"
+   id="flowSpan3396">-</flowSpan>(t)</flowPara></flowRoot>    <flowRoot
        xml:space="preserve"
        id="flowRoot5471"
        style="fill:black;fill-opacity:1;stroke:none;font-family:'Lucida Console';font-style:normal;font-weight:normal;font-size:21.33333333px;line-height:1.25;letter-spacing:0px;word-spacing:0px;-inkscape-font-specification:'Lucida Console';font-stretch:normal;font-variant:normal;"><flowRegion

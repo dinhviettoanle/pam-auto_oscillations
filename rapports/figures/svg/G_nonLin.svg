@@ -39,8 +39,8 @@
      inkscape:window-height="1017"
      id="namedview1148"
      showgrid="false"
-     inkscape:zoom="1.8368"
-     inkscape:cx="255.04178"
+     inkscape:zoom="2.5976275"
+     inkscape:cx="162.2173"
      inkscape:cy="136.18518"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
@@ -476,7 +476,9 @@
        style="stroke:none"
        y="0"
        xml:space="preserve"
-       x="0">q</text>
+       x="0">p<tspan
+   style="font-size:65%;baseline-shift:super"
+   id="tspan2027">-</tspan></text>
   </g>
   <g
      id="g162"
@@ -487,7 +489,7 @@
        style="stroke:none"
        y="0"
        xml:space="preserve"
-       x="0">i</text>
+       x="0" />
   </g>
   <g
      id="g180"
@@ -591,7 +593,9 @@
        style="stroke:none"
        y="0"
        xml:space="preserve"
-       x="0">q</text>
+       x="0">p<tspan
+   style="font-size:65%;baseline-shift:super"
+   id="tspan2025">+</tspan></text>
   </g>
   <g
      id="g200"
@@ -602,7 +606,7 @@
        style="stroke:none"
        y="0"
        xml:space="preserve"
-       x="0">o</text>
+       x="0" />
   </g>
   <g
      id="g1116"

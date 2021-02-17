@@ -2,8 +2,8 @@
 	"name" : "Delay_line",
 	"version" : 1,
 	"creationdate" : 3695921940,
-	"modificationdate" : 3696357849,
-	"viewrect" : [ 25.0, 107.0, 300.0, 500.0 ],
+	"modificationdate" : 3696414654,
+	"viewrect" : [ 25.0, 106.0, 300.0, 500.0 ],
 	"autoorganize" : 1,
 	"hideprojectwindow" : 0,
 	"showdependencies" : 1,
@@ -44,6 +44,10 @@
 				"kind" : "json",
 				"local" : 1
 			}
+
+		}
+,
+		"externals" : 		{
 
 		}
 
