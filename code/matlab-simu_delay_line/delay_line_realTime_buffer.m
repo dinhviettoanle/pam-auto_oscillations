@@ -1,13 +1,14 @@
 clear all;
 close all;
 
-fileName="realTimedelayLine.wav";
+fileName="realTimedelayLineGAUSS_Gamma047Zeta015.wav";
 SAVEAUDIO=1;
 N_SAMPLE=100000;
 SAVEAUDIO=1
-BUFFER_SIZE=2048
+BUFFER_SIZE=1024
 N_BUFFER=100;
 N_samples=N_BUFFER*BUFFER_SIZE;
+REFL_FUNC="GAUSS"
 %% Delay line, real time
 %pour l'instant sans buffer
 fe=44e3;
@@ -23,15 +24,15 @@ c=340;          % Vitesse son
 u_A = 200;      % Debit entrant
 p_M = 75e3;     % Pression de placage
 
-gamma_const=0.2;
+gamma_const=0.66;
 %gamma = ones(1, N)*0.01;
 %gamma(N/2:N)=0; 
-zeta_const=0.2;
+zeta_const=0.57;
 %zeta = ones(1, N)*0.6;
 %zeta(N/2:N)=0;
 
 %instrument
-f_note= 220
+f_note= 493.9
 dt=1/f_note
 l=0.5*dt*c
 a=2e-2;         % Rayon tube
@@ -42,36 +43,44 @@ Zc=rho0*c/S;    % Impedance caracteristique
 N_delay=round(dt/te);
 
 %% Fonction de réflexion
+% FIR1
 wc=0.1;%fait à la main, sonne plutôt bien
-%b=compB(wc, 17);%fait main, méthode de la fenêtre (poly TNS, p50-51)
 b=fir1(15, wc, 'low');%; référence
-[r_t, t]=impz(b, 1, length(b));
-%win=gausswin(BUFFER_SIZE);
-% r_t=-win(length(win)/2:end).';
-% r_t=r_t/abs(sum(r_t));
-%r_t=-[1, zeros(1,20)];
-r_t=-r_t;
-figure()
-
-plot(t,r_t)
-xlabel('temps (s)'), ylabel('r_t(t)')
-title('Fonction de réflexion')
-figure()
-freqz(b,1,length(r_t))
-drawnow()
+[r_t_fir, t]=impz(b, 1, length(b));
+r_t_fir=-r_t_fir;
 
 % Gaussienne (mcIntyre)
 t=0:128;
 a=-0.9; %a<1
 b=(2*sqrt(2*log(2)))^(-2);
 r_t_gauss=a*exp(-b*t.^2);
-r_t=r_t_gauss/abs(sum(r_t_gauss));%normalisation
+r_t_gauss=r_t_gauss/abs(sum(r_t_gauss));%normalisation
+
+% Impédance terminale
+pPlus=[1 zeros(1, 127)];
+r_t_z=zeros(1, 128);
+for ind = 1:length(pPlus)
+   r_t_z(ind)=reflect(pPlus, r_t_z, ind, a, c, te); 
+end
+
+switch REFL_FUNC
+    case "GAUSS" 
+        "GAUSS"
+        r_t=r_t_gauss;
+    case "FIR"
+        "FIR"
+        r_t=FIR;
+    case "Z_TERM"
+        "Z_TERM"
+        r_t=r_t_z;
+    otherwise
+        "ERROR : NO REFLECTION FUNCITON"
+        r_t=zeros(1,128);
+end
+
 figure()
 plot(r_t);
 xlabel('n'), ylabel('r(n)')
-% b = 1/(2*sigma^2);
-% a = -1/(sigma*sqrt(2*pi)); % a is negative so int(r(t)) equals -1 (eq (6) MCINTYRE)
-
 
 %% Calcul de G(-p^-)
 %tiré de delay_line.m
@@ -120,7 +129,7 @@ ind=1;%indice du sample
 out=zeros(1, N_BUFFER);
 
 while n < N_BUFFER
-    q_o(ind)=interp1(G_.x, G_.y, -q_n);
+    q_o(ind)=interp1(G_.x, G_.y, -real(q_n));
     %q_o(ind)=compG(gamma_const, zeta_const, -q_n);
     q_refl=cconv(q_o, r_t, BUFFER_SIZE);
     q_i=circshift(q_refl, N_delay);

@@ -54,15 +54,15 @@ title('Fonction de réflexion')
 drawnow()
 %b = 1/(2*sigma^2);
 %a = -1/(sigma*sqrt(2*pi)); % a is negative so int(r(t)) equals -1 (eq (6) MCINTYRE)
-% w=2*pi*linspace(-fe/2, fe/2, 1000);
-% k=w/c;
-% Zr=Zc.*(0.25.*(k.*a).^2+0.6133j.*k.*a/16);
-% Rw=(Zr-Zc)./(Zr+Zc);
-% figure()
-% % %plot(w, 10*log10(abs(Rw)/max(abs(Rw))))
-% plot(w, abs(Rw))
-% ylabel("|R(w)|"), xlabel("w")
-% drawnow()
+w=2*pi*linspace(-fe/2, fe/2, 1000);
+k=w/c;
+Zr=Zc.*(0.25.*(k.*a).^2+0.6133j.*k.*a/16);
+Rw=(Zr-Zc)./(Zr+Zc);
+figure()
+plot(w, 10*log10(abs(Rw)/max(abs(Rw))))
+plot(2*pi*w(w>0), abs(Rw(w>0)))
+ylabel("|R(f)|"), xlabel("Fréquence (Hz)")
+drawnow()
 % 
 % r_t=ifftshift(ifft(Rw, 'nonsymmetric'));
 % figure()
