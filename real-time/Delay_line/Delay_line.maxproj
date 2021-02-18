@@ -2,7 +2,7 @@
 	"name" : "Delay_line",
 	"version" : 1,
 	"creationdate" : 3695921940,
-	"modificationdate" : 3696524844,
+	"modificationdate" : 3696534630,
 	"viewrect" : [ 25.0, 106.0, 300.0, 500.0 ],
 	"autoorganize" : 1,
 	"hideprojectwindow" : 0,
@@ -24,12 +24,7 @@
 		}
 ,
 		"media" : 		{
-			"map_sound_no_sound_crop.jpg" : 			{
-				"kind" : "imagefile",
-				"local" : 1
-			}
-,
-			"multi_map.png" : 			{
+			"multi_map_edit.png" : 			{
 				"kind" : "imagefile",
 				"local" : 1
 			}
