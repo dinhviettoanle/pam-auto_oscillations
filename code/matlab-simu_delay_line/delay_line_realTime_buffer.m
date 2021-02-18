@@ -8,7 +8,7 @@ SAVEAUDIO=1
 BUFFER_SIZE=1024
 N_BUFFER=100;
 N_samples=N_BUFFER*BUFFER_SIZE;
-REFL_FUNC="GAUSS"
+REFL_FUNC="Z_TERM"
 %% Delay line, real time
 %pour l'instant sans buffer
 fe=44e3;
