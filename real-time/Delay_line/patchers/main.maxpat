@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 431.0, 128.0, 1163.0, 710.0 ],
+		"rect" : [ 431.0, 128.0, 798.0, 710.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 1,
 		"default_fontsize" : 12.0,
@@ -296,7 +296,6 @@
 						"style" : "",
 						"subpatcher_template" : "",
 						"assistshowspatchername" : 0,
-						"visible" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
 									"id" : "obj-7",
@@ -2637,7 +2636,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 118.0, 370.0, 81.0, 22.0 ],
-									"text" : "401."
+									"text" : "100."
 								}
 
 							}
@@ -2709,7 +2708,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 301.0, 364.429930210113525, 75.0, 22.0 ],
-									"text" : "1.545455"
+									"text" : "0.386364"
 								}
 
 							}

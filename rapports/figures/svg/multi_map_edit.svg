@@ -13,7 +13,10 @@
    version="1.1"
    id="svg835"
    sodipodi:docname="multi_map_edit.svg"
-   inkscape:version="0.92.4 (5da689c313, 2019-01-14)">
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   inkscape:export-filename="D:\Documents\Cours\M2\PAM\pam-auto_oscillations\rapports\figures\svg\multi_map_edit.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96">
   <metadata
      id="metadata839">
     <rdf:RDF>
@@ -71,7 +74,7 @@
      id="layer3"
      inkscape:label="background">
     <rect
-       style="fill:#9f9f9f;fill-opacity:1;fill-rule:evenodd;stroke-width:1.02801669"
+       style="fill:#e6e6e6;fill-opacity:1;fill-rule:evenodd;stroke-width:1.02801669"
        id="rect3347"
        width="1260"
        height="651"

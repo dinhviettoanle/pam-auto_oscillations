@@ -2,7 +2,7 @@
 	"name" : "modal_method",
 	"version" : 1,
 	"creationdate" : 3695928698,
-	"modificationdate" : 3696096110,
+	"modificationdate" : 3696528081,
 	"viewrect" : [ 25.0, 106.0, 300.0, 500.0 ],
 	"autoorganize" : 1,
 	"hideprojectwindow" : 0,
@@ -18,7 +18,11 @@
 
 		}
 ,
-		"code" : 		{
+		"media" : 		{
+			"multi_map_edit.png" : 			{
+				"kind" : "imagefile",
+				"local" : 1
+			}
 
 		}
 
